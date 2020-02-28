@@ -8,7 +8,7 @@ pipeline {
               }
             }
             steps {
-			sh '(cd ./SpringTestDemo/; mvn clean package)'
+			sh '(cd ./StockArc/; mvn clean package)'
 		stash name: "app", includes: "**"
 
 
@@ -23,8 +23,8 @@ pipeline {
             }
             steps {
 		    unstash "app"
-			sh '(cd ./SpringTestDemo/; mvn clean test)'
-		    sh '(cd ./SpringTestDemo/; mvn sonar:sonar -Dsonar.projectKey=LucienMoor_SpringTest -Dsonar.organization=lucienmoor-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=e800ab354b87736aaef7152b13db882e01bd6763)'
+			sh '(cd ./StockArc/; mvn clean test)'
+		    sh '(cd ./StockArc/; mvn sonar:sonar -Dsonar.projectKey=LucienMoor_SpringTest -Dsonar.organization=lucienmoor-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=e800ab354b87736aaef7152b13db882e01bd6763)'
 	    }
         }
         stage('IntegrationTest'){
@@ -36,7 +36,7 @@ pipeline {
 		}
 		   steps {
 			unstash "app"
-			sh 'java -jar ./SpringTestDemo/target/SpringTestDemo-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &' 
+			sh 'java -jar ./StockArc/target/StockArc-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &' 
 			sh 'sleep 30'
 			sh 'chmod +x ./runTest.sh'
 			sh './runTest.sh'
