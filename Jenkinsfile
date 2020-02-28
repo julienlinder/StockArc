@@ -8,14 +8,12 @@ pipeline {
               }
             }
             steps {
-			sh '(cd ./StockArc/; mvn clean package)'
-		stash name: "app", includes: "**"
-
-
-
+				sh '(cd ./StockArc/src/main/resources/; cp application.properties.example application.properties)'
+				sh '(cd ./StockArc/; mvn clean package)'
+				stash name: "app", includes: "**"
             }
         }
-	stage('QualityTest') { 
+		stage('QualityTest') { 
             agent {
               docker {
                image 'maven:3.6.3-jdk-11-slim'
