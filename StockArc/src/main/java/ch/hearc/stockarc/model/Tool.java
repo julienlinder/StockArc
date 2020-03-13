@@ -1,11 +1,14 @@
 package ch.hearc.stockarc.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +34,9 @@ public class Tool {
 	
 	@Enumerated
 	private Type type;
+	
+	@OneToMany(mappedBy="tool")
+    private Set<Rent> rents;
 
 	public Long getId() {
 		return id;

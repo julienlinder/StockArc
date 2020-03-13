@@ -1,5 +1,7 @@
 package ch.hearc.stockarc.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,6 +31,9 @@ public class Person {
 
 	@Column
 	private Boolean is_responsible;
+	
+	@OneToMany(mappedBy="person")
+    private Set<Rent> rents;
 
 	public Long getId() {
 		return id;
