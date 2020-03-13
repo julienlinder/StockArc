@@ -2,6 +2,7 @@ package ch.hearc.stockarc.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +12,11 @@ import javax.persistence.Table;
 @Table(name = "tool")
 
 public class Tool {
+	
+	enum Type {
+		UNIQUE,
+		DISPOSABLE
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +28,9 @@ public class Tool {
 
 	@Column
 	private Integer quantity;
+	
+	@Enumerated
+	private Type type;
 
 	public Long getId() {
 		return id;
