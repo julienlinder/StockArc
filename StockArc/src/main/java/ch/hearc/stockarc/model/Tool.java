@@ -4,18 +4,22 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "person")
+@Table(name = "tool")
 
-public class Person {
+public class Tool {
+	
+	enum Type {
+		UNIQUE,
+		DISPOSABLE
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,14 +29,13 @@ public class Person {
 	@Column
 	private String name;
 
-	@ManyToOne
-	@JoinColumn(name = "sector_id", nullable = false)
-	private Sector sector;
-
 	@Column
-	private Boolean is_responsible;
+	private Integer quantity;
 	
-	@OneToMany(mappedBy="person")
+	@Enumerated
+	private Type type;
+	
+	@OneToMany(mappedBy="tool")
     private Set<Rent> rents;
 
 	public Long getId() {
@@ -51,20 +54,12 @@ public class Person {
 		this.name = name;
 	}
 
-	public Sector getSector() {
-		return sector;
+	public Integer getQuantity() {
+		return quantity;
 	}
 
-	public void setSector(Sector sector) {
-		this.sector = sector;
-	}
-
-	public Boolean getIs_responsible() {
-		return is_responsible;
-	}
-
-	public void setIs_responsible(Boolean is_responsible) {
-		this.is_responsible = is_responsible;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 }
