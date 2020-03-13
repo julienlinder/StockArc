@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="person")
+@Table(name = "person")
 
 public class Person {
 
@@ -18,14 +18,14 @@ public class Person {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(updatable = false, nullable = false)
 	private Long id;
-	
+
 	@Column
 	private String name;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "sector_id", nullable = false)
 	private Sector sector;
-	
+
 	@Column
 	private Boolean is_responsible;
 
@@ -60,5 +60,5 @@ public class Person {
 	public void setIs_responsible(Boolean is_responsible) {
 		this.is_responsible = is_responsible;
 	}
-	
+
 }
