@@ -25,6 +25,11 @@ public class WebController {
 	public String login() {
 		return "login";
 	}
+	
+	@RequestMapping(value = "/createAccount")
+	public String createAccount() {
+		return "createAccount";
+	}
 
 	@RequestMapping(value = "/403")
 	public String Error403() {
