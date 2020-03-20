@@ -1,6 +1,7 @@
 package ch.hearc.stockarc.model;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,4 +41,43 @@ public class User {
 					name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
 	
+	public Long getId() {
+		return id;
+	}
+	
+	public Collection<Role> getRoles() {
+		return this.roles;
+	}
+	
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
