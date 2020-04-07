@@ -6,20 +6,23 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 /**
- * MailServiceImpl
+ * EmailService
  */
-@Service
-public class MailServiceImpl {
+@Service("emailService")
+public class EmailService {
 
     @Autowired
     public JavaMailSender mailSender;
 
-    public void sendSimpleMessage(String to, String subject, String text){
+    /**
+     * This method will send compose and send the message 
+     * */
+    public void sendMail(String to, String subject, String body) 
+    {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject(subject);
-        message.setText(text);
-
+        message.setText(body);
         mailSender.send(message);
     }
 }
