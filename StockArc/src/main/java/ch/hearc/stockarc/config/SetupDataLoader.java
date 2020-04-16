@@ -27,9 +27,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	@Autowired
 	private RoleRepository roleRepository;
 
-	@Autowired
-	private PersonRepository personRepository;
-
 	/*
 	 * @Autowired private PasswordEncoder passwordEncoder;
 	 */
@@ -48,14 +45,14 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		user.setEmail("test@test.test");
 		user.setRoles(Arrays.asList(roleAdmin));
 		userRepository.save(user);
-		
+
 		alreadySetup = true;
 	}
 
 	@Transactional
 	private Role createRoleIfNotFound(String name) {
 		Role role = roleRepository.findByName(name);
-		if(role == null) {
+		if (role == null) {
 			role = new Role();
 			role.setName(name);
 			roleRepository.save(role);
