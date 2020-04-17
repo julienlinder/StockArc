@@ -7,12 +7,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import ch.hearc.stockarc.model.Role;
 import ch.hearc.stockarc.model.User;
-import ch.hearc.stockarc.repository.PersonRepository;
 import ch.hearc.stockarc.repository.RoleRepository;
 import ch.hearc.stockarc.repository.UserRepository;
 

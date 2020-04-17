@@ -4,15 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import ch.hearc.stockarc.model.User;
 import ch.hearc.stockarc.service.SecurityService;
 import ch.hearc.stockarc.service.UserService;
 import ch.hearc.stockarc.validator.UserValidator;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class WebController {
@@ -26,23 +25,23 @@ public class WebController {
 	@Autowired
 	private UserValidator userValidator;
 
-	@RequestMapping(value = "/")
+	@GetMapping(value = "/")
 	public String home() {
 		return "home";
 	}
 
-	@RequestMapping(value = "/user")
+	@GetMapping(value = "/user")
 	public String user() {
 		return "user";
 	}
 
-	@RequestMapping(value = "/admin")
+	@GetMapping(value = "/admin")
 	public String admin() {
 		return "admin";
 	}
 
-	@RequestMapping(value = "/403")
-	public String Error403() {
+	@GetMapping(value = "/403")
+	public String error403() {
 		return "403";
 	}
 

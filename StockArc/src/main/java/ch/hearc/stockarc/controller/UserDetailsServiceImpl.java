@@ -1,8 +1,6 @@
 package ch.hearc.stockarc.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
