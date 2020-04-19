@@ -9,43 +9,23 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<body>
-
-    <div class="container">
-
-        <!-- <form method="POST" modelAttribute="userForm" class="form-signin">
-            <h2 class="form-signin-heading">Create your account</h2>
-            <spring:bind path="name">
-                <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input type="text" path="name" class="form-control" placeholder="Name"
-                                autofocus="true"></form:input>
-                    <form:errors path="name"></form:errors>
-                </div>
-            </spring:bind>
-
-            <spring:bind path="password">
-                <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>
-                    <form:errors path="password"></form:errors>
-                </div>
-            </spring:bind>
-
-            <spring:bind path="password">
-                <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input type="password" path="password" class="form-control"
-                                placeholder="Confirm your password"></form:input>
-                    <form:errors path="password"></form:errors>
-                </div>
-            </spring:bind>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-        </form> -->
-       
+<body class="container" style="margin: 50px">
+    <div class="row col-sm-6" style="border: 1px ridge #003312; padding: 20px; float: none; margin: 0 auto;">
+        <h5 class="text-center" style="font-size: 25px">Register</h5>
 
         <form action="#" th:action="@{/registration}" th:object="${user}" method="post">
-            <input type="text" th:field="*{name}" placeholder="Name" autofocus="true">
-            <input type="text" th:field="*{email}" placeholder="email" autofocus="true">
-            <input type="password" th:field="*{password}" placeholder="Password">
+            <div class="form-group">
+                <label for="name">Name: </label>
+                <input type="text" th:field="*{name}" placeholder="Name" autofocus="true" class="form-control" id="name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email: </label>
+                <input type="text" th:field="*{email}" placeholder="email" autofocus="true" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password: </label>
+                <input type="password" th:field="*{password}" placeholder="Password" class="form-control" id="password">
+            </div>
             <input type="submit" class="btn btn-primary btn-block">Submit</input>
         </form>
 
