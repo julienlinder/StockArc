@@ -62,6 +62,8 @@ public class WebController {
 
 		userService.save(user);
 
+		// securityService.autoLogin(user.getName(), user.getPassword());
+
 		return "home";
 	}
 

@@ -15,7 +15,7 @@
 	<div class="row col-sm-6" style="border: 1px ridge #003312; padding: 20px; float: none; margin: 0 auto;">
 		<h5 class="text-center" style="font-size: 25px">Sign In</h5>
 		<div th:if="${param.error}">
-			<p style="color: red">Name or PassWord is incorrect. Please check
+			<p style="color: red">Name or Password is incorrect. Please check
 				again!</p>
 		</div>
 		<div th:if="${param.logout}">
@@ -32,7 +32,6 @@
 				<input type="password" class="form-control" id="password" placeholder="Enter Password"
 					name="password" />
 			</div>
-			<span>${error}</span>
 			<button type="submit" class="btn btn-primary btn-block">Submit</button>
 		</form>
 	</div>
