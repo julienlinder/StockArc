@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <title>Registration</title>
+    <meta http-equiv="Content-Type" charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body class="container" style="margin: 50px">
+    <div class="row col-sm-6" style="border: 1px ridge #003312; padding: 20px; float: none; margin: 0 auto;">
+        <h5 class="text-center" style="font-size: 25px">Register</h5>
+
+        <form action="#" th:action="@{/registration}" th:object="${user}" method="post">
+            <div th:class="${#fields.hasErrors('name')}? 'form-group has-error' : 'form-group'">
+                <label for="name">Name: </label>
+                <input type="text" th:field="*{name}" placeholder="Name" autofocus="true" class="form-control"
+                    id="name" required>
+            </div>
+            <div th:class="${#fields.hasErrors('email')}? 'form-group has-error' : 'form-group'">
+                <label for="email">Email: </label>
+                <input type="email" th:field="*{email}" placeholder="email" autofocus="true" class="form-control"
+                    id="email" required>
+            </div>
+            <div th:class="${#fields.hasErrors('password')}? 'form-group has-error' : 'form-group'">
+                <label for="password">Password: </label>
+                <input type="password" th:field="*{password}" placeholder="Password" class="form-control" id="password" required>
+            </div>
+            <input type="submit" class="btn btn-primary btn-block">Submit</input>
+        </form>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+</body>
+
+</html>

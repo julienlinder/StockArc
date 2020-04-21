@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-StockArcApplication<StockArc>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "ch.hearc.stockarc.StockArcApplication",
+            "projectName": "StockArc",
+            "args": ""
+        }
+    ]
+}
