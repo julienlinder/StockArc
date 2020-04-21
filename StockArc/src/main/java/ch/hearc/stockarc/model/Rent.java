@@ -1,5 +1,6 @@
 package ch.hearc.stockarc.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -17,27 +18,27 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "rent")
 
-public class Rent {
+public class Rent implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(updatable = false, nullable = false)
 	private Long id;
-	
+
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date created_at;
+	private Date createdAt;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "person_id", referencedColumnName = "id")
-    private Person person;
-	
+	@JoinColumn(name = "person_id", referencedColumnName = "id")
+	private Person person;
+
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tool_id", referencedColumnName = "id")
-    private Tool tool;
-	
+	@JoinColumn(name = "tool_id", referencedColumnName = "id")
+	private Tool tool;
+
 	@Column
-	private Boolean is_over;
+	private Boolean isOver;
 
 	public Long getId() {
 		return id;
@@ -48,11 +49,11 @@ public class Rent {
 	}
 
 	public Date getCreated_at() {
-		return created_at;
+		return createdAt;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreated_at(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public Person getPerson() {
@@ -72,11 +73,11 @@ public class Rent {
 	}
 
 	public Boolean getIs_over() {
-		return is_over;
+		return isOver;
 	}
 
-	public void setIs_over(Boolean is_over) {
-		this.is_over = is_over;
+	public void setIs_over(Boolean isOver) {
+		this.isOver = isOver;
 	}
 
 }

@@ -21,10 +21,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	boolean alreadySetup = false;
 
 	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
