@@ -25,7 +25,7 @@ public class WebController {
 	@Autowired
 	private UserValidator userValidator;
 
-	@GetMapping(value = "/")
+	@GetMapping(value = { "/", "/home" })
 	public String home() {
 		return "home";
 	}
@@ -56,15 +56,13 @@ public class WebController {
 	public String registration(@ModelAttribute User user, BindingResult bindingResult) {
 		userValidator.validate(user, bindingResult);
 
-		// if (bindingResult.hasErrors()) { // <------ ERRORS!!!!!
-		// 	return "registration";
-		// }
+		if (bindingResult.hasErrors()) {
+			return "registration";
+		}
 
 		userService.save(user);
 
-		securityService.autoLogin(user.getName(), user.getPassword());
-
-		return "/";
+		return "home";
 	}
 
 	@GetMapping("/login")

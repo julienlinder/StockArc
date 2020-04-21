@@ -31,17 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-	// @Autowired
-	// public void configAuthentication(AuthenticationManagerBuilder auth) throws
-	// Exception {
-	// auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new
-	// BCryptPasswordEncoder())
-	// .usersByUsernameQuery("select username, email, password, enabled from users
-	// where username=?")
-	// .authoritiesByUsernameQuery("select username, role from user_roles where
-	// username=?");
-	// }
-
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());

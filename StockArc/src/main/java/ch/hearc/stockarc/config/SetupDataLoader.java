@@ -25,10 +25,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	@Autowired
 	private RoleRepository roleRepository;
 
-	/*
-	 * @Autowired private PasswordEncoder passwordEncoder;
-	 */
-
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (alreadySetup) {
@@ -36,13 +32,13 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		}
 		createRoleIfNotFound("ROLE_ADMIN");
 		createRoleIfNotFound("ROLE_USER");
-		Role roleAdmin = roleRepository.findByName("ROLE_ADMIN");
-		User user = new User();
-		user.setName("test");
-		user.setPassword("test");
-		user.setEmail("test@test.test");
-		user.setRoles(Arrays.asList(roleAdmin));
-		userRepository.save(user);
+		// Role roleAdmin = roleRepository.findByName("ROLE_ADMIN");
+		// User user = new User();
+		// user.setName("test");
+		// user.setPassword("test");
+		// user.setEmail("test@test.test");
+		// user.setRoles(Arrays.asList(roleAdmin));
+		// userRepository.save(user);
 
 		alreadySetup = true;
 	}
