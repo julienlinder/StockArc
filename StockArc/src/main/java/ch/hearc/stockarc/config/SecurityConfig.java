@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -43,6 +44,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginPage("/login").permitAll().and().logout().permitAll();
 		http.exceptionHandling().accessDeniedPage("/403");
 	}
+
+	@Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/resources/**");
+    }
 
 	@Bean
 	public AuthenticationManager customAuthenticationManager() throws Exception {
