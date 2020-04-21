@@ -1,8 +1,12 @@
 package ch.hearc.stockarc.controller;
 
+import java.io.Console;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -11,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.RedirectView;
@@ -64,4 +69,18 @@ public class RentController {
         return new RedirectView("/");
     }
 
+    @PostMapping(value = "/rent/update/{id}")
+    public RedirectView update(@PathVariable(name = "id") long id, @Valid @ModelAttribute Rent rent,
+            BindingResult bindingResult, Model model) {
+        Optional<Rent> updatedRent = rentRepository.findById(id);
+
+        if (bindingResult.hasErrors() || !updatedRent.isPresent()) {
+            rent.setId(id);
+            return new RedirectView("/");
+        }
+
+        updatedRent.get().setIsOver(true);
+        rentRepository.save(updatedRent.get());
+        return new RedirectView("/");
+    }
 }

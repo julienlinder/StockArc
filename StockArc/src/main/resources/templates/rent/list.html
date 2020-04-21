@@ -39,7 +39,7 @@
                                         <td th:text="${rent.person.name}"></td>
                                         <td th:text="${rent.isOver}"></td>
                                         <td>
-                                            <form method="POST" action="">
+                                            <form method="POST" th:action="@{/rent/update/{id}(id=${rent.id})}" th:object="${rent}">
                                                 <input type="hidden" id="isOver" name="isOver" value="true">
                                                 <button type="submit" class="form-control btn btn-success"
                                                     th:disabled="${rent.isOver == true}">Over</button>
@@ -77,7 +77,7 @@
                                         <td th:text="${rent.person.name}"></td>
                                         <td th:text="${rent.isOver == true}"></td>
                                         <td>
-                                            <form method="POST" action="">
+                                            <form method="POST" th:action="@{/rent/update/{id}(id=${rent.id})}" th:object="${rent}">
                                                 <input type="hidden" id="isOver" name="isOver" value="true">
                                                 <button type="submit" class="form-control btn btn-success"
                                                     th:disabled="${rent.isOver == true}">Over</button>
