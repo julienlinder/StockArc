@@ -30,6 +30,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr th:insert="rent/inlinecreate">
+                                    </tr>
                                     <tr th:each="rent: ${rents}">
                                         <td th:text="${#dates.format(rent.createdAt, 'dd MMMM yyyy HH:mm')}"></td>
                                         <td th:text="${rent.tool.name}"></td>

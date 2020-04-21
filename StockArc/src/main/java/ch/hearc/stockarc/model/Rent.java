@@ -1,6 +1,7 @@
 package ch.hearc.stockarc.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -25,23 +26,23 @@ public class Rent implements Serializable {
 	@Column(updatable = false, nullable = false)
 	private Long id;
 
-	@Column
+	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdAt;
+	private Date createdAt = Calendar.getInstance().getTime();
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "person_id", referencedColumnName = "id")
+	@JoinColumn(name = "person_id", referencedColumnName = "id", nullable = false)
 	private Person person;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "tool_id", referencedColumnName = "id")
+	@JoinColumn(name = "tool_id", referencedColumnName = "id", nullable = false)
 	private Tool tool;
 
-	@Column
-	private Integer quantity;
+	@Column(nullable = false)
+	private Integer quantity = 0;
 
-	@Column
-	private Boolean isOver;
+	@Column(nullable = false)
+	private Boolean isOver = false;
 
 	public Long getId() {
 		return id;

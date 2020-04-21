@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.RedirectView;
 
 import ch.hearc.stockarc.model.Rent;
+import ch.hearc.stockarc.repository.PersonRepository;
 import ch.hearc.stockarc.repository.RentRepository;
+import ch.hearc.stockarc.repository.ToolRepository;
 import ch.hearc.stockarc.utils.DateUtils;
+import ch.hearc.stockarc.validator.RentValidator;
 
 @Controller
 @EnableWebMvc
@@ -25,20 +29,39 @@ public class RentController {
     @Autowired
     private RentRepository rentRepository;
 
+    @Autowired
+    private ToolRepository toolRepository;
+
+    @Autowired
+    private PersonRepository personRepository;
+
+    @Autowired
+    private RentValidator rentValidator;
+
     @GetMapping(value = { "/", "/home" })
     public String rent(Model model) {
         Date today = Calendar.getInstance().getTime();
 
-        model.addAttribute("rents", rentRepository.findAllByCreatedAtBetween(DateUtils.getStart(today), DateUtils.getEnd(today), Sort.by(Sort.Order.asc("isOver"), Sort.Order.desc("createdAt"))));
+        model.addAttribute("rents", rentRepository.findAllByCreatedAtBetween(DateUtils.getStart(today),
+                DateUtils.getEnd(today), Sort.by(Sort.Order.asc("isOver"), Sort.Order.desc("createdAt"))));
         model.addAttribute("rentsNotOver", rentRepository.findAllWithCreatedAtBefore(DateUtils.getStart(today)));
-
-		return "rent/list";
-    }
-    
-    @PostMapping(value = "/rent/create")
-	public String registration(@ModelAttribute Rent rent, BindingResult bindingResult) {
+        model.addAttribute("tools", toolRepository.findAll());
+        model.addAttribute("people", personRepository.findAll());
 
         return "rent/list";
+    }
+
+    @PostMapping(value = "/rent/create")
+    public RedirectView registration(@ModelAttribute Rent rent, BindingResult bindingResult) {
+
+        rentValidator.validate(rent, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return new RedirectView("/");
+        }
+
+        rentRepository.save(rent);
+        return new RedirectView("/");
     }
 
 }
