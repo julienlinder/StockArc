@@ -9,24 +9,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ch.hearc.stockarc.model.User;
-import ch.hearc.stockarc.service.SecurityService;
 import ch.hearc.stockarc.service.UserService;
 import ch.hearc.stockarc.validator.UserValidator;
-
-import ch.hearc.stockarc.model.Rent;
-import ch.hearc.stockarc.repository.RentRepository;
 
 @Controller
 public class WebController {
 	
 	@Autowired
-    private RentRepository rentRepository;
-
-	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private SecurityService securityService;
 
 	@Autowired
 	private UserValidator userValidator;
@@ -52,8 +42,8 @@ public class WebController {
 	}
 	
 	@GetMapping("/rent")
-    public Iterable<Rent> findOne() {
-		return rentRepository.findAll();
+    public String rent(Model model) {
+		return "rent/list";
 	}
 	
 	@GetMapping(value = "/registration")
