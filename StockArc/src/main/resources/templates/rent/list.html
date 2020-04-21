@@ -31,16 +31,16 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="rent: ${rents}">
-                                        <td th:text="${rent.created_at}"></td>
+                                        <td th:text="${rent.createdAt}"></td>
                                         <td th:text="${rent.tool.name}"></td>
-                                        <td th:text="${rent.tool.quantity}"></td>
+                                        <td th:text="${rent.quantity}"></td>
                                         <td th:text="${rent.person.name}"></td>
-                                        <td th:text="${rent.is_over}"></td>
+                                        <td th:text="${rent.isOver}"></td>
                                         <td>
                                             <form method="POST" action="">
                                                 <input type="hidden" id="isOver" name="isOver" value="true">
                                                 <button type="submit" class="form-control btn btn-success"
-                                                    th:disabled="${rent.is_over == true}">Over</button>
+                                                    th:disabled="${rent.isOver == true}">Over</button>
                                             </form>
                                         </td>
 
@@ -69,16 +69,16 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="rent: ${rentsNotOver}">
-                                        <td th:text="${rent.created_at}"></td>
+                                        <td th:text="${rent.createdAt}"></td>
                                         <td th:text="${rent.tool.name}"></td>
-                                        <td th:text="${rent.tool.quantity}"></td>
+                                        <td th:text="${rent.quantity}"></td>
                                         <td th:text="${rent.person.name}"></td>
-                                        <td th:text="${rent.is_over == true}"></td>
+                                        <td th:text="${rent.isOver == true}"></td>
                                         <td>
                                             <form method="POST" action="">
                                                 <input type="hidden" id="isOver" name="isOver" value="true">
                                                 <button type="submit" class="form-control btn btn-success"
-                                                    th:disabled="${rent.is_over == true}">Over</button>
+                                                    th:disabled="${rent.isOver == true}">Over</button>
                                             </form>
                                         </td>
 

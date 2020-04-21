@@ -38,6 +38,9 @@ public class Rent implements Serializable {
 	private Tool tool;
 
 	@Column
+	private Integer quantity;
+
+	@Column
 	private Boolean isOver;
 
 	public Long getId() {
@@ -48,11 +51,11 @@ public class Rent implements Serializable {
 		this.id = id;
 	}
 
-	public Date getCreated_at() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreated_at(Date createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 
@@ -72,11 +75,19 @@ public class Rent implements Serializable {
 		this.tool = tool;
 	}
 
-	public Boolean getIs_over() {
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public Boolean getIsOver() {
 		return isOver;
 	}
 
-	public void setIs_over(Boolean isOver) {
+	public void setIsOver(Boolean isOver) {
 		this.isOver = isOver;
 	}
 

@@ -12,9 +12,9 @@ import ch.hearc.stockarc.model.Rent;
 
 public interface RentRepository extends JpaRepository<Rent, Long> {
 
-    List<Rent> findAllByCreatedAt(Date created_at);
+    List<Rent> findAllByCreatedAt(Date createdAt);
 
-    List<Rent> findAllByCreatedAtBetween(Date created_at_start, Date created_at_end, Sort sort);
+    List<Rent> findAllByCreatedAtBetween(Date createdAtStart, Date createdAtEnd, Sort sort);
 
     @Query("select a from Rent a where a.createdAt <= :createdAt and a.isOver = 0 order by createdAt desc ")
     List<Rent> findAllWithCreatedAtBefore(@Param("createdAt") Date createdAt);
