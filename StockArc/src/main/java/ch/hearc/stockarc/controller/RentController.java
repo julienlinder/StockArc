@@ -20,6 +20,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.RedirectView;
 
 import ch.hearc.stockarc.model.Rent;
+import ch.hearc.stockarc.model.Tool;
+import ch.hearc.stockarc.model.Tool.Type;
 import ch.hearc.stockarc.repository.PersonRepository;
 import ch.hearc.stockarc.repository.RentRepository;
 import ch.hearc.stockarc.repository.ToolRepository;
@@ -80,7 +82,6 @@ public class RentController {
             HttpServletRequest request) {
 
         String referer = request.getHeader("Referer");
-        ;
 
         rentValidator.validate(rent, bindingResult);
 
@@ -88,6 +89,14 @@ public class RentController {
             return new RedirectView(referer);
         }
 
+        // If the item is disposable we decrement the quantity and mark the rent as over.
+        if (rent.getTool().getType() == Type.DISPOSABLE) {
+            Tool tool = rent.getTool();
+            tool.setQuantity(tool.getQuantity() - rent.getQuantity());
+            rent.setIsOver(true);
+
+            toolRepository.save(tool);
+        }
         rentRepository.save(rent);
         return new RedirectView(referer);
     }

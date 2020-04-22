@@ -101,10 +101,23 @@ public class Tool {
 		this.quantity = quantity;
 	}
 
+	/**
+	 * Get the tool's type.
+	 * 
+	 * @return Type The type
+	 */
 	public Type getType() {
 		return type;
 	}
 
+	/**
+	 * Set the tool's type
+	 * 
+	 * @param type The new type
+	 */
+	public void setType(Type type) {
+		this.type = type;
+	}
 
 	/**
 	 * Get the tool's available quantity.
@@ -120,6 +133,7 @@ public class Tool {
 			// Get the total of opened rents for this tool
 			final Set<Rent> rentSet = this.rents;
 			rentSet.removeIf(Rent::getIsOver);
+			rentSet.removeIf(r -> r.getTool().getType() == Type.DISPOSABLE);
 
 			// Calculate the number of lended tool
 			for (Rent rent : rentSet) {
