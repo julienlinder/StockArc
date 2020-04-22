@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{Layout}">
+
+<head>
+    <title>Content page 1</title>
+</head>
+
+<body>
+    <section layout:fragment="content" class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="container">
+                    <h1 class="mt-3">People</h1>
+                    <p class="lead">Here you can add new person and select one.</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">People list</div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Sector</th>
+                                        <th>Is responsible</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:insert="people/inlinecreate">
+                                    </tr>
+                                    <tr th:each="person: ${people}">
+                                        <td><a th:text="${person.name}" th:href="@{/people/{id}(id=${person.id})}"></a></td>
+                                        <td th:text="${person.sector.name}"></td>
+                                        <td th:text="${person.isResponsible}"></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

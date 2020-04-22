@@ -28,7 +28,10 @@ target/
 build/
 
 ### VS Code ###
+../.vscode/
+../.vs/
 .vscode/
+.vs/
 
 ### Metadata ###
 .metadata/
