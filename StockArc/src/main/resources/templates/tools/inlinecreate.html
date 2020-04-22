@@ -5,22 +5,19 @@
 </head>
 
 <body>
-    <form method="POST" th:action="@{/rent/create}">
-        <td></td>
+    <form method="POST" th:action="@{/tool/create}">
         <td>
-            <select id="tool" name="tool" class="form-control" style='width: 100%;' required>
-                    <option th:each="tool: ${tools}" th:value="${tool.id}" th:text="${tool.name} + '(' + ${tool.availableQuantity()} + ')'"></option>
+            <input id="name" name="name" class="form-control" type="text" required>
+        </td>
+        <td>
+            <select id="type" name="type" class="form-control" style='width: 100%;' required>
+                <option th:each="typeOpt : ${T(ch.hearc.stockarc.model.Tool.Type).values()}"
+                th:value="${typeOpt}" th:text="${typeOpt}"></option>
             </select>
         </td>
         <td>
             <input id="quantity" name="quantity" class="form-control" type="number" value="1">
         </td>
-        <td>
-            <select id="person" name="person" class="form-control" style='width: 100%;' required>
-                <option th:each="person: ${people}" th:value="${person.id}" th:text="${person.name} + '(' + ${person.sector.name} + ')'"></option>
-            </select>
-        </td>
-        <td></td>
         <td><input class="form-control btn btn-primary" type="submit" value="Add"></td>
     </form>
 

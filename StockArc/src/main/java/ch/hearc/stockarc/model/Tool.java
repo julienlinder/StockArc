@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 
 public class Tool {
 
-	enum Type {
+	public enum Type {
 		UNIQUE, DISPOSABLE
 	}
 
@@ -101,6 +101,11 @@ public class Tool {
 		this.quantity = quantity;
 	}
 
+	public Type getType() {
+		return type;
+	}
+
+
 	/**
 	 * Get the tool's available quantity.
 	 * 
@@ -112,14 +117,17 @@ public class Tool {
 		Integer totalOpenedLocation = 0;
 
 		if (this.type == Type.UNIQUE) {
+			// Get the total of opened rents for this tool
 			final Set<Rent> rentSet = this.rents;
 			rentSet.removeIf(Rent::getIsOver);
 
+			// Calculate the number of lended tool
 			for (Rent rent : rentSet) {
 				totalOpenedLocation += rent.getQuantity();
 			}
 		}
 
+		// Return the max quantity - the total of lended tool
 		return this.quantity - totalOpenedLocation;
 	}
 

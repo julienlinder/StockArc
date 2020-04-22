@@ -21,66 +21,23 @@
                             <table class="table table-bordered table-striped">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>Created at</th>
-                                        <th>Tool</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
                                         <th>Quantity</th>
-                                        <th>Person</th>
-                                        <th>Is over</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:insert="rent/inlinecreate">
+                                    <tr th:insert="tools/inlinecreate">
                                     </tr>
-                                    <tr th:each="rent: ${rents}">
-                                        <td th:text="${#dates.format(rent.createdAt, 'dd MMMM yyyy HH:mm')}"></td>
-                                        <td th:text="${rent.tool.name}"></td>
-                                        <td th:text="${rent.quantity}"></td>
-                                        <td th:text="${rent.person.name}"></td>
-                                        <td th:text="${rent.isOver}"></td>
+                                    <tr th:each="tool: ${tools}">
+                                        <td th:text="${tool.name}"></td>
+                                        <td th:text="${tool.type}"></td>
+                                        <td th:text="${tool.quantity}"></td>
                                         <td>
-                                            <form method="POST" th:action="@{/rent/update/{id}(id=${rent.id})}" th:object="${rent}">
+                                            <form method="POST" th:action="@{/tool/update/{id}(id=${tool.id})}" th:object="${rent}">
                                                 <input type="hidden" id="isOver" name="isOver" value="true">
-                                                <button type="submit" class="form-control btn btn-success"
-                                                    th:disabled="${rent.isOver == true}">Over</button>
-                                            </form>
-                                        </td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card mt-5">
-                    <div class="card-header">Always opened and old locations list</div>
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Created at</th>
-                                        <th>Tool</th>
-                                        <th>Quantity</th>
-                                        <th>Person</th>
-                                        <th>Is over</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="rent: ${rentsNotOver}">
-                                        <td th:text="${#dates.format(rent.createdAt, 'dd MMMM yyyy HH:mm')}"></td>
-                                        <td th:text="${rent.tool.name}"></td>
-                                        <td th:text="${rent.quantity}"></td>
-                                        <td th:text="${rent.person.name}"></td>
-                                        <td th:text="${rent.isOver == true}"></td>
-                                        <td>
-                                            <form method="POST" th:action="@{/rent/update/{id}(id=${rent.id})}" th:object="${rent}">
-                                                <input type="hidden" id="isOver" name="isOver" value="true">
-                                                <button type="submit" class="form-control btn btn-success"
-                                                    th:disabled="${rent.isOver == true}">Over</button>
+                                                <button type="submit" class="form-control btn btn-success">Add</button>
                                             </form>
                                         </td>
 
