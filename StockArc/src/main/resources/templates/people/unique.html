@@ -34,9 +34,9 @@
                                     </tr>
                                     <tr th:each="rent: ${rents}">
                                         <td th:text="${#dates.format(rent.createdAt, 'dd MMMM yyyy HH:mm')}"></td>
-                                        <td th:text="${rent.tool.name}"></td>
+                                        <td><a th:text="${rent.tool.name}" th:href="@{/tools/{id}(id=${rent.tool.id})}"></a></td>
                                         <td th:text="${rent.quantity}"></td>
-                                        <td th:text="${rent.person.name}"></td>
+                                        <td><a th:text="${rent.person.name}" th:href="@{/people/{id}(id=${rent.person.id})}"></a></td>
                                         <td th:text="${rent.isOver}"></td>
                                         <td>
                                             <form method="POST" th:action="@{/rent/update/{id}(id=${rent.id})}" th:object="${rent}">
@@ -72,10 +72,10 @@
                                 <tbody>
                                     <tr th:each="rent: ${closedRents}">
                                         <td th:text="${#dates.format(rent.createdAt, 'dd MMMM yyyy HH:mm')}"></td>
-                                        <td th:text="${rent.tool.name}"></td>
+                                        <td><a th:text="${rent.tool.name}" th:href="@{/tools/{id}(id=${rent.tool.id})}"></a></td>
                                         <td th:text="${rent.quantity}"></td>
-                                        <td th:text="${rent.person.name}"></td>
-                                        <td th:text="${rent.isOver == true}"></td>
+                                        <td><a th:text="${rent.person.name}" th:href="@{/people/{id}(id=${rent.person.id})}"></a></td>
+                                        <td th:text="${rent.isOver}"></td>
                                         <td>
                                             <form method="POST" th:action="@{/rent/update/{id}(id=${rent.id})}" th:object="${rent}">
                                                 <input type="hidden" id="isOver" name="isOver" value="true">

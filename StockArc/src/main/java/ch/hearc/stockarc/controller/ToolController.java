@@ -24,7 +24,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import ch.hearc.stockarc.model.Rent;
 import ch.hearc.stockarc.model.Tool;
 import ch.hearc.stockarc.repository.PersonRepository;
-import ch.hearc.stockarc.repository.RentRepository;
 import ch.hearc.stockarc.repository.ToolRepository;
 import ch.hearc.stockarc.utils.DateUtils;
 
@@ -38,9 +37,6 @@ import ch.hearc.stockarc.utils.DateUtils;
 @EnableWebMvc
 @RequestMapping("/tools")
 public class ToolController {
-
-    @Autowired
-    private RentRepository rentRepository;
 
     @Autowired
     private ToolRepository toolRepository;

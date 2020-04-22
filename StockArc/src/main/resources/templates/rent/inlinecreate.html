@@ -11,7 +11,7 @@
             <span th:text="${tool?.name}"></span>
             <input th:if="${tool}" id="tool" name="tool" type="hidden" th:value="${tool.id}">
             <select th:unless="${tool}" id="tool" name="tool" class="form-control" style='width: 100%;' required>
-                <option th:each="tool: ${tool}" th:value="${tool.id}" th:text="${tool.name} + '(' + ${tool.availableQuantity()} + ')'"></option>
+                <option th:each="tool: ${tools}" th:value="${tool.id}" th:text="${tool.name} + '(' + ${tool.availableQuantity()} + ')'"></option>
             </select>
         </td>
         <td>
