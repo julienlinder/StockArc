@@ -22,33 +22,28 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(updatable = false, nullable = false)
 	private Long id;
-	
+
 	@Column
 	private String name;
-	
+
 	@Column
 	private String email;
-	
+
 	@Column
 	private String password;
-	
+
 	@ManyToMany
-	@JoinTable(
-			name = "users_roles",
-			joinColumns = @JoinColumn(
-					name = "user_id", referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(
-					name = "role_id", referencedColumnName = "id"))
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
-	
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public Collection<Role> getRoles() {
 		return this.roles;
 	}
-	
+
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
@@ -56,7 +51,7 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -64,7 +59,7 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -72,7 +67,7 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
