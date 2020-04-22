@@ -2,7 +2,7 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{Layout}">
 
 <head>
-    <title>Content page 1</title>
+    <title>Report</title>
 </head>
 
 <body>
@@ -27,7 +27,7 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="report: ${reports}">
-                                        <td><a th:text="${#dates.format(report.getDay(), 'dd MMMM yyyy')}" th:href="@{/reports/{date}(date=${#dates.format(report.getDay(), 'yyyy-MM-dd')})}"></a></td>
+                                        <td><a th:text="${#dates.format(report.getDay(), 'dd MMMM yyyy')}" th:href="@{/reports/{day}(day=${#dates.format(report.getDay(), 'yyyy-MM-dd')})}"></a></td>
                                         <td th:text="${report.getTotalRent()}"></td>
                                     </tr>
                                 </tbody>
