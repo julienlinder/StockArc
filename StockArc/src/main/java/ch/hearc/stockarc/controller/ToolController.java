@@ -78,7 +78,6 @@ public class ToolController {
         Date end = DateUtils.getEnd(today);
 
         model.addAttribute("tool", tool);
-        model.addAttribute("rents", tool.getRents());
         model.addAttribute("rents",
                 tool.getRents().stream()
                         .filter(r -> start.compareTo(r.getCreatedAt()) * r.getCreatedAt().compareTo(end) > 0)
