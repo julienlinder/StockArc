@@ -7,28 +7,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import ch.hearc.stockarc.model.User;
-import ch.hearc.stockarc.service.SecurityService;
 import ch.hearc.stockarc.service.UserService;
 import ch.hearc.stockarc.validator.UserValidator;
 
 @Controller
+@EnableWebMvc
 public class WebController {
-
+	
 	@Autowired
 	private UserService userService;
 
 	@Autowired
-	private SecurityService securityService;
-
-	@Autowired
 	private UserValidator userValidator;
-
-	@GetMapping(value = { "/", "/home" })
-	public String home() {
-		return "home";
-	}
 
 	@GetMapping(value = "/user")
 	public String user() {
@@ -44,7 +37,7 @@ public class WebController {
 	public String error403() {
 		return "403";
 	}
-
+	
 	@GetMapping(value = "/registration")
 	public String registration(Model model) {
 		model.addAttribute("user", new User());

@@ -28,6 +28,9 @@ target/
 build/
 
 ### VS Code ###
+../.vscode/
+../.vs/
 .vscode/
+.vs/
 
 application.properties

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{Layout}">
+
+<head>
+    <title>Content page 1</title>
+</head>
+
+<body>
+    <section layout:fragment="content" class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="container">
+                    <h1 class="mt-3">Tools</h1>
+                    <p class="lead">Here you can add new tool and select one.</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">Tools list</div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Quantity</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:insert="tools/inlinecreate">
+                                    </tr>
+                                    <tr th:each="tool: ${tools}">
+                                        <td><a th:text="${tool.name}" th:href="@{/tools/{id}(id=${tool.id})}"></a></td>
+                                        <td th:text="${tool.type}"></td>
+                                        <td th:text="${tool.quantity} + ' (' + ${tool.availableQuantity()} + ')'"></td>
+                                        <td>
+                                            <form class="form-inline justify-content-between" method="POST"
+                                                th:action="@{/tools/add-quantity}" th:object="${tool}">
+                                                <input type="hidden" id="id" name="id" th:value="${tool.id}">
+                                                <div class="form-group mr-5">
+                                                    <input class="form-control" id="add" name="add" type="number"
+                                                        value="10">
+                                                </div>
+                                                <button type="submit" class="form-control btn btn-success">Add</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

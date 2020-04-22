@@ -1,0 +1,16 @@
+package ch.hearc.stockarc.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import ch.hearc.stockarc.model.Rent;
+import ch.hearc.stockarc.model.Report;
+
+public interface ReportRepository extends JpaRepository<Rent, Long> {
+
+    @Query("SELECT DATE(createdAt) AS day, COUNT(id) as totalRent FROM Rent GROUP BY day ORDER BY day DESC")
+    List<Report> groupReportByDate();
+
+}
