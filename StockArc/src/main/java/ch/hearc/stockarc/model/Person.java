@@ -72,4 +72,8 @@ public class Person {
 		this.isResponsible = isResponsible;
 	}
 
+	public Set<Rent> getRents() {
+		return rents;
+	}
+
 }
