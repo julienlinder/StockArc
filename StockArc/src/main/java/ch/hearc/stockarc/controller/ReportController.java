@@ -13,7 +13,7 @@ import ch.hearc.stockarc.repository.ToolRepository;
 
 @Controller
 @EnableWebMvc
-@RequestMapping("/report")
+@RequestMapping("/reports")
 public class ReportController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class ReportController {
     @Autowired
     private PersonRepository personRepository;
 
-    @GetMapping(value = { "/" })
+    @GetMapping
     public String tools(Model model) {
 
         return "report/list";

@@ -31,7 +31,7 @@ public class Person {
 	private Sector sector;
 
 	@Column
-	private Boolean is_responsible;
+	private Boolean isResponsible = false;
 
 	@OneToMany(mappedBy = "person")
 	private Set<Rent> rents;
@@ -64,12 +64,12 @@ public class Person {
 		this.sector = sector;
 	}
 
-	public Boolean getIs_responsible() {
-		return is_responsible;
+	public Boolean getIsResponsible() {
+		return isResponsible;
 	}
 
-	public void setIs_responsible(Boolean is_responsible) {
-		this.is_responsible = is_responsible;
+	public void setIsResponsible(Boolean isResponsible) {
+		this.isResponsible = isResponsible;
 	}
 
 }

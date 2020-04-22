@@ -5,22 +5,18 @@
 </head>
 
 <body>
-    <form method="POST" th:action="@{/rent/create}">
-        <td></td>
+    <form method="POST" th:action="@{/people/create}">
         <td>
-            <select id="tool" name="tool" class="form-control" style='width: 100%;' required>
-                    <option th:each="tool: ${tools}" th:value="${tool.id}" th:text="${tool.name} + '(' + ${tool.availableQuantity()} + ')'"></option>
+            <input id="name" name="name" class="form-control" type="text" required>
+        </td>
+        <td>
+            <select id="sector" name="sector" class="form-control" style='width: 100%;' required>
+                <option th:each="sector: ${sectors}" th:value="${sector.id}" th:text="${sector.name}"></option>
             </select>
         </td>
         <td>
-            <input id="quantity" name="quantity" class="form-control" type="number" value="1">
+            <input type="checkbox" id="isResponsible" name="isResponsible" class="form-control">
         </td>
-        <td>
-            <select id="person" name="person" class="form-control" style='width: 100%;' required>
-                <option th:each="person: ${people}" th:value="${person.id}" th:text="${person.name} + '(' + ${person.sector.name} + ')'"></option>
-            </select>
-        </td>
-        <td></td>
         <td><input class="form-control btn btn-primary" type="submit" value="Add"></td>
     </form>
 
