@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{Layout}">
+
+<head>
+    <title>Content page 1</title>
+</head>
+
+<body>
+    <section layout:fragment="content" class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="container">
+                    <h1 class="mt-3" th:text="'Report: ' + ${#dates.format(day, 'dd MMMM yyyy')}"></h1>
+                    <p class="lead">Consult the report of this day.</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">List of rent for this day</div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Created at</th>
+                                        <th>Tool</th>
+                                        <th>Quantity</th>
+                                        <th>Person</th>
+                                        <th>Is over</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="rent: ${rents}">
+                                        <td th:text="${#dates.format(rent.createdAt, 'dd MMMM yyyy HH:mm')}"></td>
+                                        <td><a th:text="${rent.tool.name}" th:href="@{/tools/{id}(id=${rent.tool.id})}"></a></td>
+                                        <td th:text="${rent.quantity}"></td>
+                                        <td><a th:text="${rent.person.name}" th:href="@{/people/{id}(id=${rent.person.id})}"></a></td>
+                                        <td th:text="${rent.isOver}"></td>
+                                        <td>
+                                            <form method="POST" th:action="@{/rent/update/{id}(id=${rent.id})}" th:object="${rent}">
+                                                <input type="hidden" id="isOver" name="isOver" value="true">
+                                                <button type="submit" class="form-control btn btn-success"
+                                                    th:disabled="${rent.isOver == true}">Over</button>
+                                            </form>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import ch.hearc.stockarc.model.Person;
 
-public interface PersonRepository extends JpaRepository<Person, Long> {
-
+public interface PeopleRepository extends JpaRepository<Person, Long> {
+    
 }

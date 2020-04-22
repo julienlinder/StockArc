@@ -20,17 +20,26 @@
                 <label for="name">Name: </label>
                 <input type="text" th:field="*{name}" placeholder="Name" autofocus="true" class="form-control"
                     id="name" required>
+                <div th:if="${#fields.hasErrors('name')}">
+                    <label>You must have at least 6 characters</label>
+                </div>
             </div>
             <div th:class="${#fields.hasErrors('email')}? 'form-group has-error' : 'form-group'">
                 <label for="email">Email: </label>
                 <input type="email" th:field="*{email}" placeholder="email" autofocus="true" class="form-control"
                     id="email" required>
+                <div th:if="${#fields.hasErrors('email')}">
+                    <label>You're email is invalid</label>
+                </div>
             </div>
             <div th:class="${#fields.hasErrors('password')}? 'form-group has-error' : 'form-group'">
                 <label for="password">Password: </label>
                 <input type="password" th:field="*{password}" placeholder="Password" class="form-control" id="password" required>
+                <div th:if="${#fields.hasErrors('password')}">
+                    <label>Your password must have 8 characters</label>
+                </div>
             </div>
-            <input type="submit" class="btn btn-primary btn-block">Submit</input>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
         </form>
 
     </div>

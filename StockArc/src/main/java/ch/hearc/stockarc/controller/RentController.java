@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.RedirectView;
 
 import ch.hearc.stockarc.model.Rent;
-import ch.hearc.stockarc.repository.PersonRepository;
+import ch.hearc.stockarc.model.Tool;
+import ch.hearc.stockarc.model.Tool.Type;
+import ch.hearc.stockarc.repository.PeopleRepository;
 import ch.hearc.stockarc.repository.RentRepository;
 import ch.hearc.stockarc.repository.ToolRepository;
 import ch.hearc.stockarc.utils.DateUtils;
@@ -42,7 +44,7 @@ public class RentController {
     private ToolRepository toolRepository;
 
     @Autowired
-    private PersonRepository personRepository;
+    private PeopleRepository peopleRepository;
 
     @Autowired
     private RentValidator rentValidator;
@@ -61,7 +63,7 @@ public class RentController {
                 DateUtils.getEnd(today), Sort.by(Sort.Order.asc("isOver"), Sort.Order.desc("createdAt"))));
         model.addAttribute("rentsNotOver", rentRepository.findAllWithCreatedAtBefore(DateUtils.getStart(today)));
         model.addAttribute("tools", toolRepository.findAll());
-        model.addAttribute("people", personRepository.findAll());
+        model.addAttribute("people", peopleRepository.findAll());
 
         return "rent/list";
     }
@@ -71,19 +73,32 @@ public class RentController {
      * 
      * @param rent          The rent object
      * @param bindingResult Represent the binding result
+     * @param request       Represent the HttpServletRequest
      * @return RedirectView The view shown after processing
      */
     @PostMapping(value = "/rent/create")
-    public RedirectView registration(@ModelAttribute Rent rent, BindingResult bindingResult) {
+    public RedirectView registration(@ModelAttribute Rent rent, BindingResult bindingResult,
+            HttpServletRequest request) {
+
+        String referer = request.getHeader("Referer");
 
         rentValidator.validate(rent, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return new RedirectView("/");
+            return new RedirectView(referer);
         }
 
+        // If the item is disposable we decrement the quantity and mark the rent as
+        // over.
+        if (rent.getTool().getType() == Type.DISPOSABLE) {
+            Tool tool = rent.getTool();
+            tool.setQuantity(tool.getQuantity() - rent.getQuantity());
+            rent.setIsOver(true);
+
+            toolRepository.save(tool);
+        }
         rentRepository.save(rent);
-        return new RedirectView("/");
+        return new RedirectView(referer);
     }
 
     /**
@@ -93,20 +108,23 @@ public class RentController {
      * @param rent          The rent object
      * @param bindingResult Represent the binding result
      * @param model         Model attributes to pass data to the view
+     * @param request       Represent the HttpServletRequest
      * @return RedirectView The view shown after processing
      */
-    @PostMapping(value = "/rent/update/{id}")
-    public RedirectView update(@PathVariable(name = "id") long id, @Valid @ModelAttribute Rent rent,
-            BindingResult bindingResult, Model model) {
-        Optional<Rent> updatedRent = rentRepository.findById(id);
+    @PostMapping(value = "/rent/update")
+    public RedirectView update(@Valid @ModelAttribute Rent rent, BindingResult bindingResult, Model model,
+            HttpServletRequest request) {
+
+        Optional<Rent> updatedRent = rentRepository.findById(rent.getId());
+
+        String referer = request.getHeader("Referer");
 
         if (bindingResult.hasErrors() || !updatedRent.isPresent()) {
-            rent.setId(id);
-            return new RedirectView("/");
+            return new RedirectView(referer);
         }
 
         updatedRent.get().setIsOver(true);
         rentRepository.save(updatedRent.get());
-        return new RedirectView("/");
+        return new RedirectView(referer);
     }
 }

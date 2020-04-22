@@ -10,80 +10,41 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="container">
-                    <h1 class="mt-3">Rent</h1>
-                    <p class="lead">Here you can register new rent for the tools.</p>
+                    <h1 class="mt-3">Tools</h1>
+                    <p class="lead">Here you can add new tool and select one.</p>
                 </div>
                 <div class="card">
-                    <div class="card-header">Daily locations list</div>
+                    <div class="card-header">Tools list</div>
 
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>Created at</th>
-                                        <th>Tool</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
                                         <th>Quantity</th>
-                                        <th>Person</th>
-                                        <th>Is over</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:insert="rent/inlinecreate">
+                                    <tr th:insert="tools/inlinecreate">
                                     </tr>
-                                    <tr th:each="rent: ${rents}">
-                                        <td th:text="${#dates.format(rent.createdAt, 'dd MMMM yyyy HH:mm')}"></td>
-                                        <td th:text="${rent.tool.name}"></td>
-                                        <td th:text="${rent.quantity}"></td>
-                                        <td th:text="${rent.person.name}"></td>
-                                        <td th:text="${rent.isOver}"></td>
+                                    <tr th:each="tool: ${tools}">
+                                        <td><a th:text="${tool.name}" th:href="@{/tools/{id}(id=${tool.id})}"></a></td>
+                                        <td th:text="${tool.type}"></td>
+                                        <td th:text="${tool.quantity} + ' (' + ${tool.availableQuantity()} + ')'"></td>
                                         <td>
-                                            <form method="POST" th:action="@{/rent/update/{id}(id=${rent.id})}" th:object="${rent}">
-                                                <input type="hidden" id="isOver" name="isOver" value="true">
-                                                <button type="submit" class="form-control btn btn-success"
-                                                    th:disabled="${rent.isOver == true}">Over</button>
+                                            <form class="form-inline justify-content-between" method="POST"
+                                                th:action="@{/tools/add-quantity}" th:object="${tool}">
+                                                <input type="hidden" id="id" name="id" th:value="${tool.id}">
+                                                <div class="form-group mr-5">
+                                                    <input class="form-control" id="add" name="add" type="number"
+                                                        value="10">
+                                                </div>
+                                                <button type="submit" class="form-control btn btn-success">Add</button>
                                             </form>
                                         </td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card mt-5">
-                    <div class="card-header">Always opened and old locations list</div>
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Created at</th>
-                                        <th>Tool</th>
-                                        <th>Quantity</th>
-                                        <th>Person</th>
-                                        <th>Is over</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="rent: ${rentsNotOver}">
-                                        <td th:text="${#dates.format(rent.createdAt, 'dd MMMM yyyy HH:mm')}"></td>
-                                        <td th:text="${rent.tool.name}"></td>
-                                        <td th:text="${rent.quantity}"></td>
-                                        <td th:text="${rent.person.name}"></td>
-                                        <td th:text="${rent.isOver == true}"></td>
-                                        <td>
-                                            <form method="POST" th:action="@{/rent/update/{id}(id=${rent.id})}" th:object="${rent}">
-                                                <input type="hidden" id="isOver" name="isOver" value="true">
-                                                <button type="submit" class="form-control btn btn-success"
-                                                    th:disabled="${rent.isOver == true}">Over</button>
-                                            </form>
-                                        </td>
-
                                     </tr>
                                 </tbody>
                             </table>
