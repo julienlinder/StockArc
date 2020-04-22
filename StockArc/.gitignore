@@ -30,4 +30,7 @@ build/
 ### VS Code ###
 .vscode/
 
+### Metadata ###
+.metadata/
+
 application.properties
