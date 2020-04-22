@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -74,12 +72,15 @@ public class RentController {
      * 
      * @param rent          The rent object
      * @param bindingResult Represent the binding result
+     * @param request       Represent the HttpServletRequest
      * @return RedirectView The view shown after processing
      */
     @PostMapping(value = "/rent/create")
-    public RedirectView registration(@ModelAttribute Rent rent, BindingResult bindingResult, HttpServletRequest request) {
+    public RedirectView registration(@ModelAttribute Rent rent, BindingResult bindingResult,
+            HttpServletRequest request) {
 
-        String referer = request.getHeader("Referer");;
+        String referer = request.getHeader("Referer");
+        ;
 
         rentValidator.validate(rent, bindingResult);
 

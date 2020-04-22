@@ -1,7 +1,6 @@
 package ch.hearc.stockarc.controller;
 
 import java.util.Date;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.stream.Collectors;
 
@@ -23,18 +22,20 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import ch.hearc.stockarc.model.Person;
 import ch.hearc.stockarc.repository.PersonRepository;
-import ch.hearc.stockarc.repository.RentRepository;
 import ch.hearc.stockarc.repository.SectorRepository;
 import ch.hearc.stockarc.repository.ToolRepository;
 import ch.hearc.stockarc.utils.DateUtils;
+
+/**
+ * People controller, dispatch all the request concerning person.
+ * 
+ * @author Alexandre Bianchi
+ */
 
 @Controller
 @EnableWebMvc
 @RequestMapping("/people")
 public class PeopleController {
-
-    @Autowired
-    private RentRepository rentRepository;
 
     @Autowired
     private ToolRepository toolRepository;
@@ -45,6 +46,12 @@ public class PeopleController {
     @Autowired
     private SectorRepository sectorRepository;
 
+    /**
+     * Display all the people.
+     * 
+     * @param model Model attributes to pass data to the view
+     * @return String The views name
+     */
     @GetMapping
     public String people(Model model) {
 
@@ -54,8 +61,15 @@ public class PeopleController {
         return "people/list";
     }
 
+    /**
+     * Show the rent of one person.
+     * 
+     * @param id    The id of the person
+     * @param model Model attributes to pass data to the view
+     * @return String The views name
+     */
     @GetMapping("/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+    public String showUnique(@PathVariable("id") long id, Model model) {
         Person person = personRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
@@ -75,8 +89,15 @@ public class PeopleController {
         return "people/unique";
     }
 
+    /**
+     * Create a new person from the posted data.
+     * 
+     * @param person        The person object
+     * @param bindingResult Represent the binding result
+     * @return RedirectView The view shown after processing
+     */
     @PostMapping(value = "/create")
-    public RedirectView registration(@Valid @ModelAttribute Person person, BindingResult bindingResult) {
+    public RedirectView store(@Valid @ModelAttribute Person person, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return new RedirectView("/people");

@@ -1,6 +1,5 @@
 package ch.hearc.stockarc.model;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -27,7 +26,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @DynamicUpdate
 @Table(name = "rent")
-public class Rent implements Serializable {
+public class Rent {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
