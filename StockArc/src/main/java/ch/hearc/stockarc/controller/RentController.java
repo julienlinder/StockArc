@@ -1,7 +1,5 @@
 package ch.hearc.stockarc.controller;
 
-import java.io.Console;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
@@ -27,6 +25,12 @@ import ch.hearc.stockarc.repository.ToolRepository;
 import ch.hearc.stockarc.utils.DateUtils;
 import ch.hearc.stockarc.validator.RentValidator;
 
+/**
+ * Rent controller, dispatch all the request concerning rent.
+ * 
+ * @author Alexandre Bianchi
+ */
+
 @Controller
 @EnableWebMvc
 public class RentController {
@@ -43,6 +47,12 @@ public class RentController {
     @Autowired
     private RentValidator rentValidator;
 
+    /**
+     * Display all the current rent of the day and the old rent that are not closed.
+     * 
+     * @param model Model attributes to pass data to the view
+     * @return String The views name
+     */
     @GetMapping(value = { "/", "/home" })
     public String rent(Model model) {
         Date today = Calendar.getInstance().getTime();
@@ -56,6 +66,13 @@ public class RentController {
         return "rent/list";
     }
 
+    /**
+     * Create a new rent from the posted data.
+     * 
+     * @param rent          The rent object
+     * @param bindingResult Represent the binding result
+     * @return RedirectView The view shown after processing
+     */
     @PostMapping(value = "/rent/create")
     public RedirectView registration(@ModelAttribute Rent rent, BindingResult bindingResult) {
 
@@ -69,6 +86,15 @@ public class RentController {
         return new RedirectView("/");
     }
 
+    /**
+     * Update a rent with the submitted data
+     * 
+     * @param id            Id of the object that we want to update
+     * @param rent          The rent object
+     * @param bindingResult Represent the binding result
+     * @param model         Model attributes to pass data to the view
+     * @return RedirectView The view shown after processing
+     */
     @PostMapping(value = "/rent/update/{id}")
     public RedirectView update(@PathVariable(name = "id") long id, @Valid @ModelAttribute Rent rent,
             BindingResult bindingResult, Model model) {

@@ -18,10 +18,15 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+/**
+ * Represent a rent.
+ * 
+ * @author Alexandre Bianchi
+ */
+
 @Entity
 @DynamicUpdate
 @Table(name = "rent")
-
 public class Rent implements Serializable {
 
 	@Id
@@ -47,50 +52,111 @@ public class Rent implements Serializable {
 	@Column(nullable = false)
 	private Boolean isOver = false;
 
+	/**
+	 * Get the id of the rent.
+	 * 
+	 * @return Long The current id
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * Set the id of the rent.
+	 * 
+	 * @param id The new id
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Get the creation date of the rent.
+	 * 
+	 * @return Date The creation date
+	 */
 	public Date getCreatedAt() {
 		return createdAt;
 	}
 
+	/**
+	 * Set the creation date of the rent.
+	 * 
+	 * @param createdAt The new creation date
+	 */
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 
+	/**
+	 * Get the person owning the rent.
+	 * 
+	 * @return Person The person owning the rent.
+	 */
 	public Person getPerson() {
 		return person;
 	}
 
+	/**
+	 * Set the person owning the rent.
+	 * 
+	 * @param person The new person owning the rent.
+	 */
 	public void setPerson(Person person) {
 		this.person = person;
 	}
 
+	/**
+	 * Get the lended tool.
+	 * 
+	 * @return Tool The lended tool.
+	 */
 	public Tool getTool() {
 		return tool;
 	}
 
+	/**
+	 * Set the lended tool.
+	 * 
+	 * @param tool The new lended tool.
+	 */
 	public void setTool(Tool tool) {
 		this.tool = tool;
 	}
 
+	/**
+	 * Get the number of tool lended in this rent.
+	 * 
+	 * @return Integer The quantity
+	 */
 	public Integer getQuantity() {
 		return quantity;
 	}
 
+	/**
+	 * Set the number of tool lended in this rent.
+	 * 
+	 * @param quantity The new quantity
+	 */
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
+	/**
+	 * Get the status of the rent.
+	 * 
+	 * @return Boolean <code>true</code> if the rent is over; <code>false</code>
+	 *         otherwise.
+	 */
 	public Boolean getIsOver() {
 		return isOver;
 	}
 
+	/**
+	 * Set the status of the rent.
+	 * 
+	 * @param isOver The new status
+	 */
 	public void setIsOver(Boolean isOver) {
 		this.isOver = isOver;
 	}
