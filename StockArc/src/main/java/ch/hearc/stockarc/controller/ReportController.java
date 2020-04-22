@@ -1,5 +1,7 @@
 package ch.hearc.stockarc.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,9 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import ch.hearc.stockarc.repository.PersonRepository;
-import ch.hearc.stockarc.repository.RentRepository;
-import ch.hearc.stockarc.repository.ToolRepository;
+import ch.hearc.stockarc.model.Report;
+import ch.hearc.stockarc.repository.ReportRepository;
+
+/**
+ * Report controller, dispatch all the request concerning report.
+ * 
+ * @author Alexandre Bianchi
+ */
 
 @Controller
 @EnableWebMvc
@@ -17,17 +24,19 @@ import ch.hearc.stockarc.repository.ToolRepository;
 public class ReportController {
 
     @Autowired
-    private RentRepository rentRepository;
+    private ReportRepository reportRepository;
 
-    @Autowired
-    private ToolRepository toolRepository;
-
-    @Autowired
-    private PersonRepository personRepository;
-
+    /**
+     * Display all the report aka "day with ren".
+     * 
+     * @param model Model attributes to pass data to the view
+     * @return String The views name
+     */
     @GetMapping
-    public String tools(Model model) {
+    public String reports(Model model) {
 
-        return "report/list";
+        model.addAttribute("reports", reportRepository.groupReportByDate());
+
+        return "reports/list";
     }
 }

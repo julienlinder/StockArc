@@ -23,7 +23,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import ch.hearc.stockarc.model.Rent;
 import ch.hearc.stockarc.model.Tool;
-import ch.hearc.stockarc.repository.PersonRepository;
+import ch.hearc.stockarc.repository.PeopleRepository;
 import ch.hearc.stockarc.repository.ToolRepository;
 import ch.hearc.stockarc.utils.DateUtils;
 
@@ -42,7 +42,7 @@ public class ToolController {
     private ToolRepository toolRepository;
 
     @Autowired
-    private PersonRepository personRepository;
+    private PeopleRepository peopleRepository;
 
     /**
      * Display all the tools.
@@ -81,7 +81,7 @@ public class ToolController {
                         .filter(r -> start.compareTo(r.getCreatedAt()) * r.getCreatedAt().compareTo(end) > 0)
                         .filter(r -> !r.getIsOver()).sorted(Comparator.comparing(Rent::getCreatedAt).reversed())
                         .collect(Collectors.toList()));
-        model.addAttribute("people", personRepository.findAll());
+        model.addAttribute("people", peopleRepository.findAll());
         model.addAttribute("closedRents", tool.getRents().stream().filter(r -> r.getIsOver())
                 .sorted(Comparator.comparing(Rent::getCreatedAt).reversed()).collect(Collectors.toList()));
 

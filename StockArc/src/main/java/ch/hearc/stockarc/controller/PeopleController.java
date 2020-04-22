@@ -23,7 +23,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import ch.hearc.stockarc.model.Person;
 import ch.hearc.stockarc.model.Rent;
-import ch.hearc.stockarc.repository.PersonRepository;
+import ch.hearc.stockarc.repository.PeopleRepository;
 import ch.hearc.stockarc.repository.SectorRepository;
 import ch.hearc.stockarc.repository.ToolRepository;
 import ch.hearc.stockarc.utils.DateUtils;
@@ -43,7 +43,7 @@ public class PeopleController {
     private ToolRepository toolRepository;
 
     @Autowired
-    private PersonRepository personRepository;
+    private PeopleRepository peopleRepository;
 
     @Autowired
     private SectorRepository sectorRepository;
@@ -57,7 +57,7 @@ public class PeopleController {
     @GetMapping
     public String people(Model model) {
 
-        model.addAttribute("people", personRepository.findAll(Sort.by(Direction.ASC, "name")));
+        model.addAttribute("people", peopleRepository.findAll(Sort.by(Direction.ASC, "name")));
         model.addAttribute("sectors", sectorRepository.findAll(Sort.by(Direction.ASC, "name")));
 
         return "people/list";
@@ -72,7 +72,7 @@ public class PeopleController {
      */
     @GetMapping("/{id}")
     public String showUnique(@PathVariable("id") long id, Model model) {
-        Person person = personRepository.findById(id)
+        Person person = peopleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
         Date today = Calendar.getInstance().getTime();
@@ -105,7 +105,7 @@ public class PeopleController {
             return new RedirectView("/people");
         }
 
-        personRepository.save(person);
+        peopleRepository.save(person);
         return new RedirectView("/people");
     }
 }
