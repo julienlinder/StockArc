@@ -35,12 +35,16 @@
                                         <td th:text="${tool.type}"></td>
                                         <td th:text="${tool.quantity} + ' (' + ${tool.availableQuantity()} + ')'"></td>
                                         <td>
-                                            <form method="POST" th:action="@{/tool/update/{id}(id=${tool.id})}" th:object="${rent}">
-                                                <input type="hidden" id="isOver" name="isOver" value="true">
+                                            <form class="form-inline justify-content-between" method="POST"
+                                                th:action="@{/tools/add-quantity}" th:object="${tool}">
+                                                <input type="hidden" id="id" name="id" th:value="${tool.id}">
+                                                <div class="form-group mr-5">
+                                                    <input class="form-control" id="add" name="add" type="number"
+                                                        value="10">
+                                                </div>
                                                 <button type="submit" class="form-control btn btn-success">Add</button>
                                             </form>
                                         </td>
-
                                     </tr>
                                 </tbody>
                             </table>

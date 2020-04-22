@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.RedirectView;
@@ -112,15 +111,15 @@ public class RentController {
      * @param request       Represent the HttpServletRequest
      * @return RedirectView The view shown after processing
      */
-    @PostMapping(value = "/rent/update/{id}")
-    public RedirectView update(@PathVariable(name = "id") long id, @Valid @ModelAttribute Rent rent,
-            BindingResult bindingResult, Model model, HttpServletRequest request) {
-        Optional<Rent> updatedRent = rentRepository.findById(id);
+    @PostMapping(value = "/rent/update")
+    public RedirectView update(@Valid @ModelAttribute Rent rent, BindingResult bindingResult, Model model,
+            HttpServletRequest request) {
+
+        Optional<Rent> updatedRent = rentRepository.findById(rent.getId());
 
         String referer = request.getHeader("Referer");
 
         if (bindingResult.hasErrors() || !updatedRent.isPresent()) {
-            rent.setId(id);
             return new RedirectView(referer);
         }
 

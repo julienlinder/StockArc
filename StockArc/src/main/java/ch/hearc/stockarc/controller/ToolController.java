@@ -3,8 +3,10 @@ package ch.hearc.stockarc.controller;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -104,5 +107,32 @@ public class ToolController {
 
         toolRepository.save(tool);
         return new RedirectView("/tools");
+    }
+
+    /**
+     * Add given amount to the maximum quantity of the given tool.
+     * 
+     * @param add           The amount to add
+     * @param tool          The tool where we need to add the amount
+     * @param bindingResult Represent the binding result
+     * @param model         Model attributes to pass data to the view
+     * @param request       Represent the HttpServletRequest
+     * @return RedirectView The view shown after processing
+     */
+    @PostMapping(value = "/add-quantity")
+    public RedirectView addQuantity(@RequestParam("add") Integer add, @Valid @ModelAttribute Tool tool,
+            BindingResult bindingResult, Model model, HttpServletRequest request) {
+
+        Optional<Tool> updatedTool = toolRepository.findById(tool.getId());
+
+        String referer = request.getHeader("Referer");
+
+        if (bindingResult.hasErrors() || !updatedTool.isPresent()) {
+            return new RedirectView(referer);
+        }
+
+        updatedTool.get().setQuantity(updatedTool.get().getQuantity() + add);
+        toolRepository.save(updatedTool.get());
+        return new RedirectView(referer);
     }
 }
