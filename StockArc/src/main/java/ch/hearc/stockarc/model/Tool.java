@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -45,6 +46,7 @@ public class Tool {
 	private Type type;
 
 	@OneToMany(mappedBy = "tool")
+	@OrderBy("createdAt DESC")
 	private Set<Rent> rents;
 
 	/**

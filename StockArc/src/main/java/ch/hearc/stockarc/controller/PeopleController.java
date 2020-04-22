@@ -1,7 +1,10 @@
 package ch.hearc.stockarc.controller;
 
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -21,6 +24,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.RedirectView;
 
 import ch.hearc.stockarc.model.Person;
+import ch.hearc.stockarc.model.Rent;
 import ch.hearc.stockarc.repository.PersonRepository;
 import ch.hearc.stockarc.repository.SectorRepository;
 import ch.hearc.stockarc.repository.ToolRepository;
@@ -76,15 +80,15 @@ public class PeopleController {
         Date today = Calendar.getInstance().getTime();
         Date start = DateUtils.getStart(today);
         Date end = DateUtils.getEnd(today);
-
         model.addAttribute("person", person);
         model.addAttribute("rents",
                 person.getRents().stream()
                         .filter(r -> start.compareTo(r.getCreatedAt()) * r.getCreatedAt().compareTo(end) > 0)
-                        .filter(r -> !r.getIsOver()).collect(Collectors.toSet()));
+                        .filter(r -> !r.getIsOver()).sorted(Comparator.comparing(Rent::getCreatedAt).reversed())
+                        .collect(Collectors.toList()));
         model.addAttribute("tools", toolRepository.findAll());
-        model.addAttribute("closedRents",
-                person.getRents().stream().filter(r -> r.getIsOver()).collect(Collectors.toSet()));
+        model.addAttribute("closedRents", person.getRents().stream().filter(r -> r.getIsOver())
+                .sorted(Comparator.comparing(Rent::getCreatedAt).reversed()).collect(Collectors.toList()));
 
         return "people/unique";
     }

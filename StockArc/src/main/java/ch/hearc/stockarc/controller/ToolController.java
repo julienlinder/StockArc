@@ -1,6 +1,7 @@
 package ch.hearc.stockarc.controller;
 
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.RedirectView;
 
+import ch.hearc.stockarc.model.Rent;
 import ch.hearc.stockarc.model.Tool;
 import ch.hearc.stockarc.repository.PersonRepository;
 import ch.hearc.stockarc.repository.RentRepository;
@@ -77,13 +79,15 @@ public class ToolController {
         Date end = DateUtils.getEnd(today);
 
         model.addAttribute("tool", tool);
+        model.addAttribute("rents", tool.getRents());
         model.addAttribute("rents",
                 tool.getRents().stream()
                         .filter(r -> start.compareTo(r.getCreatedAt()) * r.getCreatedAt().compareTo(end) > 0)
-                        .filter(r -> !r.getIsOver()).collect(Collectors.toSet()));
+                        .filter(r -> !r.getIsOver()).sorted(Comparator.comparing(Rent::getCreatedAt).reversed())
+                        .collect(Collectors.toList()));
         model.addAttribute("people", personRepository.findAll());
-        model.addAttribute("closedRents",
-                tool.getRents().stream().filter(r -> r.getIsOver()).collect(Collectors.toSet()));
+        model.addAttribute("closedRents", tool.getRents().stream().filter(r -> r.getIsOver())
+                .sorted(Comparator.comparing(Rent::getCreatedAt).reversed()).collect(Collectors.toList()));
 
         return "tools/unique";
     }

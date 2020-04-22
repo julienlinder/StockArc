@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -39,6 +40,7 @@ public class Person {
 	private Boolean isResponsible = false;
 
 	@OneToMany(mappedBy = "person")
+	@OrderBy("createdAt DESC")
 	private Set<Rent> rents;
 
 	@OneToOne
