@@ -1,5 +1,9 @@
 package ch.hearc.stockarc.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,7 @@ import ch.hearc.stockarc.model.Tool;
 import ch.hearc.stockarc.repository.PersonRepository;
 import ch.hearc.stockarc.repository.RentRepository;
 import ch.hearc.stockarc.repository.ToolRepository;
+import ch.hearc.stockarc.utils.DateUtils;
 
 /**
  * Tools controller, dispatch all the request concerning tool.
@@ -53,6 +58,34 @@ public class ToolController {
         model.addAttribute("tools", toolRepository.findAll(Sort.by(Direction.ASC, "name")));
 
         return "tools/list";
+    }
+
+    /**
+     * Show the rent of one tool.
+     * 
+     * @param id    The id of the person
+     * @param model Model attributes to pass data to the view
+     * @return String The views name
+     */
+    @GetMapping("/{id}")
+    public String showUnique(@PathVariable("id") long id, Model model) {
+        Tool tool = toolRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid tool Id:" + id));
+
+        Date today = Calendar.getInstance().getTime();
+        Date start = DateUtils.getStart(today);
+        Date end = DateUtils.getEnd(today);
+
+        model.addAttribute("tool", tool);
+        model.addAttribute("rents",
+                tool.getRents().stream()
+                        .filter(r -> start.compareTo(r.getCreatedAt()) * r.getCreatedAt().compareTo(end) > 0)
+                        .filter(r -> !r.getIsOver()).collect(Collectors.toSet()));
+        model.addAttribute("people", personRepository.findAll());
+        model.addAttribute("closedRents",
+                tool.getRents().stream().filter(r -> r.getIsOver()).collect(Collectors.toSet()));
+
+        return "tools/unique";
     }
 
     /**

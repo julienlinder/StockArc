@@ -145,4 +145,13 @@ public class Tool {
 		return this.quantity - totalOpenedLocation;
 	}
 
+	/**
+	 * Get all the rents of a tool
+	 * 
+	 * @return Set<Rent> The rents
+	 */
+	public Set<Rent> getRents() {
+		return rents;
+	}
+
 }
