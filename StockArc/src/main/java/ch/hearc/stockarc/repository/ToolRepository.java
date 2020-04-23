@@ -14,5 +14,4 @@ public interface ToolRepository extends JpaRepository<Tool, Long> {
     List<Tool> findByNameIsContaining(String name);
 
     List<Tool> findByNameIsContaining(String name, Sort sort);
-
 }

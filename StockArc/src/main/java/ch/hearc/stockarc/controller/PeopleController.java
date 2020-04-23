@@ -1,6 +1,7 @@
 package ch.hearc.stockarc.controller;
 
 import java.util.Date;
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.stream.Collectors;
