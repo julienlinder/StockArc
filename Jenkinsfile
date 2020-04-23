@@ -17,7 +17,7 @@ pipeline {
             }
             steps {
                 sh '(cd ./StockArc/src/main/resources/; cp application.properties.example application.properties)'
-                sh '(cd ./StockArc/; mvn clean package)'
+                sh '(cd ./StockArc/; mvn -Dmaven.test.skip=true clean package)'
                 stash name: "app", includes: "**"
             }
         }
