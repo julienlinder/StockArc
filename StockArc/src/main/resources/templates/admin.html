@@ -8,25 +8,6 @@
 <body>
 	<h1>Hello, the page is for Admin!</h1>
 	<a style="color: blue" th:href="@{/}">Home</a>
-<<<<<<< HEAD
-	<div class="card-body">
-		<table class="table">
-			 <thead>
-			  <tr>
-			    <th scope="col">Nom</th>
-			    <th scope="col">Quantité</th>
-			  </tr>
-			</thead>
-			<tbody>
-			  <tr th:each="tool: ${tools}">
-			      <td th:text="${tool.name}" />
-			      <td th:text="${tool.quantity}" />
-			  </tr>
-			</tbody>
-		</table>
-	 </div>
-=======
->>>>>>> develop
 	<form th:action="@{/logout}" method="post">
 		<input type="submit" value="Sign Out" />
 	</form>

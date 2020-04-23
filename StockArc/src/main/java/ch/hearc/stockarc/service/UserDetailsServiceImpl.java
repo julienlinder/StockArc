@@ -1,4 +1,4 @@
-package ch.hearc.stockarc.controller;
+package ch.hearc.stockarc.service;
 
 import java.util.ArrayList;
 import java.util.List;

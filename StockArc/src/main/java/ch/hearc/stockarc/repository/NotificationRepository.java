@@ -13,9 +13,6 @@ import ch.hearc.stockarc.model.User;
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 	
 	List<Notification> findByUser(User user);
-	
-	/*@Query("select n from Notification n where n.user.uid=:userId ORDER BY n.createdAt DESC")
-	List<Notification> userNotification(@Param("userId") Long userId);*/
 
 	Notification findByUserAndNotificationId(User user,Integer notificationId);
 }
