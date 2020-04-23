@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.RedirectView;
 
 import ch.hearc.stockarc.model.User;
 import ch.hearc.stockarc.service.UserService;
@@ -46,18 +47,16 @@ public class WebController {
 	}
 
 	@PostMapping("/registration")
-	public String registration(@ModelAttribute User user, BindingResult bindingResult) {
+	public RedirectView registration(@ModelAttribute User user, BindingResult bindingResult) {
 		userValidator.validate(user, bindingResult);
 
 		if (bindingResult.hasErrors()) {
-			return "registration";
+			return new RedirectView("/registration");
 		}
 
 		userService.save(user);
 
-		// securityService.autoLogin(user.getName(), user.getPassword());
-
-		return "home";
+		return new RedirectView("/people");
 	}
 
 	@GetMapping("/login")
