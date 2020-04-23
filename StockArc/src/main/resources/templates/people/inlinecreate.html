@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Content page 1</title>
+</head>
+
+<body>
+    <form method="POST" th:action="@{/people/create}">
+        <td>
+            <input id="name" name="name" class="form-control" type="text" required>
+        </td>
+        <td>
+            <select id="sector" name="sector" class="form-control" style='width: 100%;' required>
+                <option th:each="sector: ${sectors}" th:value="${sector.id}" th:text="${sector.name}"></option>
+            </select>
+        </td>
+        <td>
+            <input type="checkbox" id="isResponsible" name="isResponsible" class="form-control">
+        </td>
+        <td><input class="form-control btn btn-primary" type="submit" value="Add"></td>
+    </form>
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Content page 1</title>
+</head>
+
+<body>
+    <form method="POST" th:action="@{/rent/create}">
+        <td></td>
+        <td>
+            <span th:text="${tool?.name}"></span>
+            <input th:if="${tool}" id="tool" name="tool" type="hidden" th:value="${tool.id}">
+            <select th:unless="${tool}" id="tool" name="tool" class="form-control" style='width: 100%;' required>
+                <option th:each="tool: ${tools}" th:value="${tool.id}" th:text="${tool.name} + '(' + ${tool.availableQuantity()} + ')'"></option>
+            </select>
+        </td>
+        <td>
+            <input id="quantity" name="quantity" class="form-control" type="number" value="1">
+        </td>
+        <td>
+            <span th:text="${person?.name}"></span>
+            <input th:if="${person}" id="person" name="person" type="hidden" th:value="${person.id}">
+            <select th:unless="${person}" id="person" name="person" class="form-control" style='width: 100%;' required>
+                <option th:each="person: ${people}" th:value="${person.id}" th:text="${person.name} + '(' + ${person.sector.name} + ')'"></option>
+            </select>
+        </td>
+        <td></td>
+        <td><input class="form-control btn btn-primary" type="submit" value="Add"></td>
+    </form>
+
+</body>
+
+</html>
