@@ -23,6 +23,12 @@ import ch.hearc.stockarc.model.Person;
 import ch.hearc.stockarc.repository.NotificationRepository;
 import ch.hearc.stockarc.repository.UserRepository;
 
+/**
+ * Notification controller dispatch all requests concerning notification
+ * 
+ * @author julien
+ *
+ */
 @Controller
 @EnableWebMvc
 @RequestMapping("/Notification")
@@ -34,8 +40,16 @@ public class NotificationController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	/**
+	 * get all the notification of the currently logged user in "message" + "date of creation" + "," + "isRead" + "," format
+	 * 
+	 * @param principal the container of the authentication details
+	 * @return a string containing all the notification concerning the logged user
+	 * 
+	 */
 	@GetMapping(value="/getNotif")
-	public @ResponseBody String displayNotification(Principal principal) throws IOException{        
+	public @ResponseBody String displayNotification(Principal principal)
+	{        
 	    String name = principal.getName();
 	    List<Notification> notifications = notificationRepository.findByUser(userRepository.findByName(name));
 	    
@@ -54,8 +68,16 @@ public class NotificationController {
 	    return response;
 	}
 	
+	/**
+	 * set all actual notifications read state to true
+	 * it is called each time the user check his notifications
+	 * 
+	 * @param principal the container of the authentication details
+	 * @return nothing
+	 */
 	@GetMapping(value="/readNotif")
-	public @ResponseBody String readNotificationForUser(Principal principal) throws IOException{        
+	public @ResponseBody String readNotificationForUser(Principal principal)
+	{        
 	    String name = principal.getName();
 	    List<Notification> notifications = notificationRepository.findByUser(userRepository.findByName(name));
 
@@ -64,7 +86,7 @@ public class NotificationController {
 			notificationRepository.save(notification);
 		}
 	    
-	    return "yes";
+	    return "all_done";
 	}
 
 }
