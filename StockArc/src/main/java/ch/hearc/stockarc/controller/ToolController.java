@@ -50,13 +50,18 @@ public class ToolController {
     /**
      * Display all the tools.
      * 
-     * @param model Model attributes to pass data to the view
+     * @param search Optional parameters to limit the tools returned
+     * @param model  Model attributes to pass data to the view
      * @return String The views name
      */
     @GetMapping
-    public String tools(Model model) {
+    public String tools(@RequestParam(value = "search", required = false) String search, Model model) {
 
-        model.addAttribute("tools", toolRepository.findAll(Sort.by(Direction.ASC, "name")));
+        if (search != null) {
+            model.addAttribute("tools", toolRepository.findByNameIsContaining(search, Sort.by(Direction.ASC, "name")));
+        } else {
+            model.addAttribute("tools", toolRepository.findAll(Sort.by(Direction.ASC, "name")));
+        }
 
         return "tools/list";
     }
