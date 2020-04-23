@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -52,13 +53,20 @@ public class PeopleController {
     /**
      * Display all the people.
      * 
-     * @param model Model attributes to pass data to the view
+     * @param search Optional parameters to limit the people returned
+     * @param model  Model attributes to pass data to the view
      * @return String The views name
      */
     @GetMapping
-    public String people(Model model) {
+    public String people(@RequestParam(value = "search", required = false) String search, Model model) {
 
-        model.addAttribute("people", peopleRepository.findAll(Sort.by(Direction.ASC, "name")));
+        if (search != null) {
+            model.addAttribute("people",
+                    peopleRepository.findByNameIsContaining(search, Sort.by(Direction.ASC, "name")));
+        } else {
+            model.addAttribute("people", peopleRepository.findAll(Sort.by(Direction.ASC, "name")));
+        }
+
         model.addAttribute("sectors", sectorRepository.findAll(Sort.by(Direction.ASC, "name")));
 
         return "people/list";

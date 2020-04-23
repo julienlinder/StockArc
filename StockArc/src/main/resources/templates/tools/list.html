@@ -17,6 +17,12 @@
                     <div class="card-header">Tools list</div>
 
                     <div class="card-body">
+
+                        <!-- BEGIN SEARCH -->
+                        <div th:insert="layouts/search"></div>
+                        <!-- END SEARCH -->
+
+                        <!-- BEGIN LIST -->
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped">
                                 <thead class="thead-dark">
@@ -49,6 +55,8 @@
                                 </tbody>
                             </table>
                         </div>
+                        <!-- END LIST -->
+                        
                     </div>
                 </div>
             </div>
