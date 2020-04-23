@@ -37,6 +37,11 @@ public class WebController {
 	public String error403() {
 		return "403";
 	}
+
+	@GetMapping("/forgotPassword")
+    public String tools(Model model) {
+        return "users/forgotPassword";
+    }
 	
 	@GetMapping(value = "/registration")
 	public String registration(Model model) {

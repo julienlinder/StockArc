@@ -9,7 +9,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import ch.hearc.stockarc.model.User;
-import ch.hearc.stockarc.service.UserService;
+import ch.hearc.stockarc.service.IUserService;
 
 @Component
 public class UserValidator implements Validator {
@@ -17,7 +17,7 @@ public class UserValidator implements Validator {
     Logger logger = LoggerFactory.getLogger(UserValidator.class);
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Override
     public boolean supports(Class<?> aClass) {
