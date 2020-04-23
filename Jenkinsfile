@@ -33,7 +33,7 @@ pipeline {
                 sh '(cd ./StockArc/; mvn sonar:sonar -Dsonar.projectKey=julienlinder_StockArc -Dsonar.organization=julienlinder -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=25ab78fb883118bfeb0cdb2d53c65bcef9c0c4b7)'
             }
         }
-        /*stage('IntegrationTest') {
+        stage('IntegrationTest') {
             agent {
                 docker {
                     image 'lucienmoor/katalon-for-jenkins:latest'
@@ -51,7 +51,7 @@ pipeline {
 
             }
 
-        }*/
+        }
     }
     post {
         always {
