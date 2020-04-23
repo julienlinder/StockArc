@@ -1,62 +1,22 @@
 package ch.hearc.stockarc.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.view.RedirectView;
-
-import ch.hearc.stockarc.model.User;
-import ch.hearc.stockarc.service.UserService;
-import ch.hearc.stockarc.validator.UserValidator;
 
 @Controller
 @EnableWebMvc
 public class WebController {
-	
-	@Autowired
-	private UserService userService;
-
-	@Autowired
-	private UserValidator userValidator;
-
-	@GetMapping(value = "/user")
-	public String user() {
-		return "user";
-	}
-
-	@GetMapping(value = "/admin")
-	public String admin() {
-		return "admin";
-	}
 
 	@GetMapping(value = "/403")
 	public String error403() {
 		return "403";
 	}
-	
-	@GetMapping(value = "/registration")
-	public String registration(Model model) {
-		model.addAttribute("user", new User());
 
-		return "registration";
-	}
-
-	@PostMapping("/registration")
-	public RedirectView registration(@ModelAttribute User user, BindingResult bindingResult) {
-		userValidator.validate(user, bindingResult);
-
-		if (bindingResult.hasErrors()) {
-			return new RedirectView("/registration");
-		}
-
-		userService.save(user);
-
-		return new RedirectView("/people");
+	@GetMapping("/forgotPassword")
+	public String tools(Model model) {
+		return "users/forgotPassword";
 	}
 
 	@GetMapping("/login")

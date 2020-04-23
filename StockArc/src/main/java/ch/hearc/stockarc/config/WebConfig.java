@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
@@ -29,6 +30,12 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public LayoutDialect layoutDialect() {
         return new LayoutDialect();
+    }
+
+    @Override
+    public void addViewControllers(final ViewControllerRegistry registry) {
+        registry.addViewController("/updatePassword.html");
+        registry.addViewController("/updateAccount.html");
     }
 
     @Override

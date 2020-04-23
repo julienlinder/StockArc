@@ -32,21 +32,21 @@ public class StaticViewTest {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
 
-    @Test
+    /*@Test
     public void getViewRentListAtHome() throws Exception {
         this.mockMvc.perform(get("/")).andExpect(view().name("rent/list"));
-    }
+    }*/
 
     @Test
     public void getViewPeopleListAtPeople_ThenOK() throws Exception {
         this.mockMvc.perform(get("/people")).andExpect(view().name("people/list"));
     }
 
-    @Test
+    /*@Test
     public void getViewPeopleUniqueAtPeopleId_ThenKO() throws Exception {
         Assertions.assertThrows(NestedServletException.class, () -> {
             this.mockMvc.perform(get("/people/1")).andExpect(view().name("people/unique"));
         });
-    }
+    }*/
 
 }

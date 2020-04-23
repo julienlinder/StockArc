@@ -39,30 +39,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/", "/home")
-			.authenticated()
-			.antMatchers("/static/**", "/registration")
-			.permitAll()
-			.antMatchers("/admin")
-			.hasRole("ADMIN")
-			.anyRequest()
-			.authenticated()
-			.and()
-			.formLogin()
-			.loginPage("/login")
-			.permitAll()
-			.and()
-			.logout()
-			.permitAll();
-		
+		http.authorizeRequests().antMatchers("/", "/home").authenticated()
+				.antMatchers("/static/**", "/registration", "/forgotPassword", "/users/resetPassword",
+						"/users/changePassword*", "/users/completeAccount*")
+				.permitAll().antMatchers("/users/updatePassword*", "/users/savePassword*", "/updatePassword*")
+				.hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
+				.antMatchers("/users/updateAccount*", "/users/saveAccount*", "/updateAccount*")
+				.hasAuthority("CHANGE_ACCOUNT_PRIVILEGE").antMatchers("/admin").hasRole("ADMIN").anyRequest()
+				.authenticated().and().formLogin().loginPage("/login").permitAll().and().logout().permitAll();
+
 		http.exceptionHandling().accessDeniedPage("/403");
 	}
 
 	@Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/**");
-    }
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/resources/**");
+	}
 
 	@Bean
 	public AuthenticationManager customAuthenticationManager() throws Exception {
