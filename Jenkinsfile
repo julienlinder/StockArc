@@ -29,7 +29,7 @@ pipeline {
             }
             steps {
                 unstash "app"
-                sh '(cd ./StockArc/; mvn clean test)'
+                /*sh '(cd ./StockArc/; mvn clean test)'*/
                 sh '(cd ./StockArc/; mvn sonar:sonar -Dsonar.projectKey=julienlinder_StockArc -Dsonar.organization=julienlinder -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=25ab78fb883118bfeb0cdb2d53c65bcef9c0c4b7)'
             }
         }
