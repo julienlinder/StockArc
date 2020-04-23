@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>TestLogin</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>2dc888bb-78e5-4d5e-9b37-fc758d7c9437</testCaseGuid>
+   <variable>
+      <defaultValue>'gael.christe'</defaultValue>
+      <description></description>
+      <id>5a9854cf-3e7a-48b0-813a-cf03865c0838</id>
+      <masked>false</masked>
+      <name>username</name>
+   </variable>
+</TestCaseEntity>
