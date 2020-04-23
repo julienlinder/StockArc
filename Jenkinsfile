@@ -1,9 +1,9 @@
 pipeline {
+    agent any
     options {
         disableConcurrentBuilds()
     }
-    agent any
-	environment {
+    environment {
 		SPRING_DATASOURCE_URL='jdbc:mysql://157.26.83.84:3306/spring_db_2020?useSSL=false'
 		SPRING_DATASOURCE_USERNAME=credentials('SPRING_DATASOURCE_USERNAME')
         SPRING_DATASOURCE_PASSWORD=credentials('SPRING_DATASOURCE_PASSWORD')
