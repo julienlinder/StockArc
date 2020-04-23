@@ -11,10 +11,14 @@ import org.springframework.stereotype.Service;
 
 import ch.hearc.stockarc.model.NewUser;
 import ch.hearc.stockarc.model.PasswordResetToken;
+import ch.hearc.stockarc.model.Person;
 import ch.hearc.stockarc.model.Role;
 import ch.hearc.stockarc.model.User;
+import ch.hearc.stockarc.model.UserCreationToken;
 import ch.hearc.stockarc.repository.PasswordResetTokenRepository;
+import ch.hearc.stockarc.repository.PeopleRepository;
 import ch.hearc.stockarc.repository.RoleRepository;
+import ch.hearc.stockarc.repository.UserCreationTokenRepository;
 import ch.hearc.stockarc.repository.UserRepository;
 
 @Service
@@ -27,7 +31,13 @@ public class UserService implements IUserService {
     private RoleRepository roleRepository;
 
     @Autowired
+    private PeopleRepository peopleRepository;
+
+    @Autowired
     private PasswordResetTokenRepository passwordTokenRepository;
+
+    @Autowired
+    private UserCreationTokenRepository creationTokenRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -61,8 +71,8 @@ public class UserService implements IUserService {
 
     @Override
     public void createUserCreationTokenForUser(User user, String token) {
-        final PasswordResetToken myToken = new PasswordResetToken(token, user);
-        passwordTokenRepository.save(myToken);
+        final UserCreationToken myToken = new UserCreationToken(token, user);
+        creationTokenRepository.save(myToken);
     }
 
     @Override
@@ -72,9 +82,22 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void createNewPartialUser(@Valid NewUser newUser) {
-        // TODO Auto-generated method stub
+    public User createNewPartialUser(@Valid NewUser newUser) {
+        Role roleAdmin = roleRepository.findByName("ROLE_USER");
 
+        User user = new User();
+        user.setEmail(newUser.getEmail());
+        user.setRoles(Arrays.asList(roleAdmin));
+
+        User savedUser = userRepository.save(user);
+
+        if (newUser.getExistingPerson() == "Yes") {
+            Person person = peopleRepository.findById(newUser.getPerson().getId()).get();
+            person.setUser(savedUser);
+            peopleRepository.save(person);
+        }
+
+        return savedUser;
     }
 
 }

@@ -19,6 +19,6 @@ public interface IUserService {
 
     void changeUserPassword(final User user, final String password);
 
-	void createNewPartialUser(@Valid NewUser newUser);
+	User createNewPartialUser(@Valid NewUser newUser);
 
 }

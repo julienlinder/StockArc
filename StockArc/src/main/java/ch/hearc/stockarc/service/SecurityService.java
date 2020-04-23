@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import ch.hearc.stockarc.controller.UserDetailsServiceImpl;
 import ch.hearc.stockarc.model.PasswordResetToken;
 import ch.hearc.stockarc.model.User;
+import ch.hearc.stockarc.model.UserCreationToken;
 import ch.hearc.stockarc.repository.PasswordResetTokenRepository;
 import ch.hearc.stockarc.repository.UserCreationTokenRepository;
 
@@ -61,7 +62,7 @@ public class SecurityService implements ISecurityService {
     }
 
     public String validateUserCreationToken(long id, String token) {
-        final PasswordResetToken passToken = creationTokenRepository.findByToken(token);
+        final UserCreationToken passToken = creationTokenRepository.findByToken(token);
         if ((passToken == null) || (passToken.getUser().getId() != id)) {
             return "invalidToken";
         }
@@ -73,7 +74,7 @@ public class SecurityService implements ISecurityService {
 
         final User user = passToken.getUser();
         final Authentication auth = new UsernamePasswordAuthenticationToken(user, null,
-                Arrays.asList(new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
+                Arrays.asList(new SimpleGrantedAuthority("CHANGE_ACCOUNT_PRIVILEGE")));
         SecurityContextHolder.getContext().setAuthentication(auth);
         return null;
     }
@@ -91,7 +92,7 @@ public class SecurityService implements ISecurityService {
 
         final User user = passToken.getUser();
         final Authentication auth = new UsernamePasswordAuthenticationToken(user, null,
-                Arrays.asList(new SimpleGrantedAuthority("CHANGE_ACCOUNT_PRIVILEGE")));
+                Arrays.asList(new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
         SecurityContextHolder.getContext().setAuthentication(auth);
         return null;
     }

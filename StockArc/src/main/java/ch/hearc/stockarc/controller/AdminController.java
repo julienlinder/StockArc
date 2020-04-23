@@ -20,11 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import ch.hearc.stockarc.model.NewUser;
-import ch.hearc.stockarc.model.Person;
 import ch.hearc.stockarc.model.User;
 import ch.hearc.stockarc.repository.PeopleRepository;
 import ch.hearc.stockarc.service.IUserService;
-import ch.hearc.stockarc.service.UserService;
 
 @Controller
 @EnableWebMvc
@@ -55,14 +53,12 @@ public class AdminController {
             return "error";
         }
 
-        final User user = userService.findByEmail(newUser.getEmail());
-        if (user != null) {
+        User savedUser = userService.createNewPartialUser(newUser);
+        if (savedUser != null) {
             final String token = UUID.randomUUID().toString();
-            userService.createPasswordResetTokenForUser(user, token);
-            mailSender.send(construcUserCreationTokenEmail(getAppUrl(request), token, user));
+            userService.createUserCreationTokenForUser(savedUser, token);
+            mailSender.send(construcUserCreationTokenEmail(getAppUrl(request), token, savedUser));
         }
-
-        userService.createNewPartialUser(newUser);
         
         return "admin/newaccount";
     }
