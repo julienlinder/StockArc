@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import ch.hearc.stockarc.controller.UserDetailsServiceImpl;
 import ch.hearc.stockarc.model.PasswordResetToken;
 import ch.hearc.stockarc.model.User;
 import ch.hearc.stockarc.model.UserCreationToken;
