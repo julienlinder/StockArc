@@ -30,8 +30,13 @@ function checkNotification()
 			var mainButton = document.getElementById("navbarDropdown_notif");
 			notiflist.textContent = '';
 			mainButton.className = "nav-link dropdown-toggle";
+			if(array.length < 2)
+				{
+					return;
+				}
 			for(var i = 0; i<array.length; i+=2)
 				{
+				console.log(array.length);
 				if(array[i+1] == "false")
 					{
 					mainButton.className = "bg-secondary text-white nav-link dropdown-toggle";
