@@ -2,6 +2,7 @@ package ch.hearc.stockarc.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +58,10 @@ public class NotificationController {
 	    
 	    for(int i = 0; i<notifications.size(); i++)
 	    {
-	    	response += notifications.get(i).getMessage() + "\r\n " + notifications.get(i).getCreatedAt().toString() + "\r\n,";
+			Calendar c = Calendar.getInstance();
+			c.setTime(notifications.get(i).getCreatedAt());
+
+	    	response += notifications.get(i).getMessage() + "," + c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DAY_OF_MONTH) + ",";
 			response += notifications.get(i).isRead();
 			if(i+1 != notifications.size())
 			{
