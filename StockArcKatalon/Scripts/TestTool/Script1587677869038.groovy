@@ -21,13 +21,25 @@ WebUI.openBrowser('')
 
 WebUI.navigateToUrl('http://localhost:8080/login')
 
-WebUI.setText(findTestObject('Object Repository/Page_Login/input_Email_email'), 'test@test.test')
+WebUI.setText(findTestObject('Page_Login/input_Email_email'), 'test@test.test')
 
 WebUI.setEncryptedText(findTestObject('Page_Login/input_Forgot password_password'), 'xE1QVbiWs2d8zyB2/oE82A==')
 
 WebUI.click(findTestObject('Page_Login/button_Login'))
 
-WebUI.click(findTestObject('Page_Content page 1/h1_Rent'))
+WebUI.click(findTestObject('Object Repository/Page_Content page 1/a_Tools'))
+
+WebUI.setText(findTestObject('Object Repository/Page_Content page 1/input_Quantity_name'), 'Allumette')
+
+WebUI.click(findTestObject('Object Repository/Page_Content page 1/span_UNIQUE'))
+
+WebUI.setText(findTestObject('Object Repository/Page_Content page 1/input_DISPOSABLE_quantity'), '10')
+
+WebUI.click(findTestObject('Object Repository/Page_Content page 1/input_DISPOSABLE_form-control btn btn-primary'))
+
+WebUI.click(findTestObject('Object Repository/Page_Content page 1/td_Allumette'))
+
+WebUI.click(findTestObject('Object Repository/Page_Content page 1/td_DISPOSABLE'))
 
 WebUI.closeBrowser()
 
