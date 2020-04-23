@@ -44,11 +44,11 @@ public class UserService implements IUserService {
 
     @Override
     public void save(User user) {
-        Role roleAdmin = roleRepository.findByName("ROLE_USER");
+        Role roleUser = roleRepository.findByName("ROLE_USER");
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(new ArrayList<>(roleRepository.findAll()));
-        user.setRoles(Arrays.asList(roleAdmin));
+        user.setRoles(Arrays.asList(roleUser));
 
         userRepository.save(user);
     }
@@ -89,11 +89,11 @@ public class UserService implements IUserService {
 
     @Override
     public User createNewPartialUser(@Valid NewUser newUser) {
-        Role roleAdmin = roleRepository.findByName("ROLE_USER");
+        Role roleUser = roleRepository.findByName("ROLE_USER");
 
         User user = new User();
         user.setEmail(newUser.getEmail());
-        user.setRoles(Arrays.asList(roleAdmin));
+        user.setRoles(Arrays.asList(roleUser));
 
         User savedUser = userRepository.save(user);
 
