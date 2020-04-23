@@ -38,11 +38,11 @@ public class Rent {
 	private Date createdAt = Calendar.getInstance().getTime();
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "person_id", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "person_id", referencedColumnName = "id")
 	private Person person;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "tool_id", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "tool_id", referencedColumnName = "id")
 	private Tool tool;
 
 	@Column(nullable = false)
