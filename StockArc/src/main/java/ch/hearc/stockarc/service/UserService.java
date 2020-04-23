@@ -97,7 +97,7 @@ public class UserService implements IUserService {
 
         User savedUser = userRepository.save(user);
 
-        if (newUser.getExistingPerson() == "Yes") {
+        if (newUser.getExistingPerson().equals("Yes")) {
             Person person = peopleRepository.findById(newUser.getPerson().getId()).get();
             person.setUser(savedUser);
             peopleRepository.save(person);
