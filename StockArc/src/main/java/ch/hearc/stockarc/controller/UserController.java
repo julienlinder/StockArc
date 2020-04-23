@@ -65,6 +65,7 @@ public class UserController {
     public RedirectView savePassword(final Locale locale, @RequestParam("newPassword") String newPassword) {
         final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userService.changeUserPassword(user, newPassword);
+        SecurityContextHolder.clearContext();
         return new RedirectView("/");
     }
 
@@ -84,6 +85,7 @@ public class UserController {
         final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userService.changeUserPassword(user, newPassword);
         userService.changeUserName(user, name);
+        SecurityContextHolder.clearContext();
         return new RedirectView("/");
     }
 
