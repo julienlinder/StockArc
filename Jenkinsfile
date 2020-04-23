@@ -17,7 +17,7 @@ pipeline {
             }
             steps {
                 sh '(cd ./StockArc/src/main/resources/; cp application.properties.example application.properties)'
-                sh '(cd ./StockArc/; mvn clean package)'
+                sh '(cd ./StockArc/; mvnw clean package)'
                 stash name: "app", includes: "**"
             }
         }
@@ -29,8 +29,8 @@ pipeline {
             }
             steps {
                 unstash "app"
-                sh '(cd ./StockArc/; mvn clean test)'
-                sh '(cd ./StockArc/; mvn sonar:sonar -Dsonar.projectKey=julienlinder_StockArc -Dsonar.organization=julienlinder -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=25ab78fb883118bfeb0cdb2d53c65bcef9c0c4b7)'
+                sh '(cd ./StockArc/; mvnw clean test)'
+                sh '(cd ./StockArc/; mvnw sonar:sonar -Dsonar.projectKey=julienlinder_StockArc -Dsonar.organization=julienlinder -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=25ab78fb883118bfeb0cdb2d53c65bcef9c0c4b7)'
             }
         }
         stage('IntegrationTest') {
