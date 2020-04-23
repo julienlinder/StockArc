@@ -28,6 +28,8 @@ public class RentRepositoryTest {
 
         assertTrue(foundRent.isPresent());
         assertEquals(rent.getId(), foundRent.get().getId());
+
+        rentRepository.delete(foundRent.get());
     }
 
 }

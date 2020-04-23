@@ -42,10 +42,10 @@ pipeline {
             }
             steps {
                 unstash "app"
-                /*sh 'java -jar ./StockArc/target/StockArc-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &'
+                sh 'java -jar ./StockArc/target/StockArc-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &'
                 sh 'sleep 30'
                 sh 'chmod +x ./runTest.sh'
-                sh './runTest.sh'*/
+                sh './runTest.sh'
 
                 cleanWs()
 

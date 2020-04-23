@@ -46,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
 				.antMatchers("/users/updateAccount*", "/users/saveAccount*", "/updateAccount*")
 				.hasAuthority("CHANGE_ACCOUNT_PRIVILEGE").antMatchers("/admin").hasRole("ADMIN").anyRequest()
-				.authenticated().and().formLogin().loginPage("/login").permitAll().and().logout().permitAll();
+				.authenticated().and().formLogin().loginPage("/login").usernameParameter("email").permitAll().and()
+				.logout().permitAll();
 
 		http.exceptionHandling().accessDeniedPage("/403");
 	}
