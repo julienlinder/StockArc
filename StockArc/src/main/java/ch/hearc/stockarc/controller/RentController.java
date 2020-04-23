@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.RedirectView;
 
+import ch.hearc.stockarc.model.Notification;
 import ch.hearc.stockarc.model.Rent;
 import ch.hearc.stockarc.model.Tool;
 import ch.hearc.stockarc.model.Tool.Type;
+import ch.hearc.stockarc.repository.NotificationRepository;
 import ch.hearc.stockarc.repository.PeopleRepository;
 import ch.hearc.stockarc.repository.RentRepository;
 import ch.hearc.stockarc.repository.ToolRepository;
@@ -45,10 +47,13 @@ public class RentController {
 
     @Autowired
     private PeopleRepository peopleRepository;
+    
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     @Autowired
     private RentValidator rentValidator;
-
+    
     /**
      * Display all the current rent of the day and the old rent that are not closed.
      * 
@@ -125,6 +130,11 @@ public class RentController {
 
         updatedRent.get().setIsOver(true);
         rentRepository.save(updatedRent.get());
+        
+        String message = "Your rent for " + updatedRent.get().getTool().getName() + " is over.";
+        Notification notification = new Notification(message, new Date(), updatedRent.get().getPerson().getUser());
+        notificationRepository.save(notification);
+        
         return new RedirectView(referer);
     }
 }
