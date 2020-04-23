@@ -17,7 +17,8 @@ import org.openqa.selenium.Keys as Keys
 
 WebUI.openBrowser('')
 
-WebUI.navigateToUrl('http://localhost:8080/login')
+println (System.getenv( 'local_addr' ))
+WebUI.navigateToUrl('http://'+System.getenv( 'local_addr' )+"/login")
 
 WebUI.setText(findTestObject('Page_Login/input_Email_email'), 'test@test.test')
 
