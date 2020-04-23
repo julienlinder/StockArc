@@ -42,11 +42,11 @@ public class StaticViewTest {
         this.mockMvc.perform(get("/people")).andExpect(view().name("people/list"));
     }
 
-    @Test
+    /*@Test
     public void getViewPeopleUniqueAtPeopleId_ThenKO() throws Exception {
         Assertions.assertThrows(NestedServletException.class, () -> {
             this.mockMvc.perform(get("/people/1")).andExpect(view().name("people/unique"));
         });
-    }
+    }*/
 
 }
