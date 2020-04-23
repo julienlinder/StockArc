@@ -17,25 +17,17 @@ import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
-WebUI.openBrowser('')
+WebUI.openBrowser('http://localhost:8080/')
 
-WebUI.navigateToUrl('http://localhost:8090/login')
+WebUI.navigateToUrl('http://localhost:8080/login')
 
-WebUI.setText(findTestObject('Page_Login/input_Username_username'), 'gael.christe')
+WebUI.setText(findTestObject('Page_Login/input_Username_username'), 'mainAdmin')
 
-WebUI.setEncryptedText(findTestObject('Page_Login/input_Password_password'), '4nvbrPglk7k=')
+WebUI.setEncryptedText(findTestObject('Object Repository/Page_Login/input_Forgot password_password'), 'xE1QVbiWs2d8zyB2/oE82A==')
 
-WebUI.sendKeys(findTestObject('Page_Login/input_Password_password'), Keys.chord(Keys.ENTER))
+WebUI.click(findTestObject('Page_Login/button_Login'))
 
-WebUI.verifyElementPresent(findTestObject('Page_Login/div_Name or Password is incorrect Please ch_8a3690'), 0)
-
-WebUI.setText(findTestObject('Page_Login/input_Username_username'), 'gael.christe')
-
-WebUI.setEncryptedText(findTestObject('Page_Login/input_Password_password'), 'RigbBhfdqOBGNlJIWM1ClA==')
-
-WebUI.sendKeys(findTestObject('Page_Login/input_Password_password'), Keys.chord(Keys.ENTER))
-
-WebUI.verifyElementPresent(findTestObject('Object Repository/Page_Content page 1/h1_Rent'), 0)
+WebUI.click(findTestObject('Page_Content page 1/h1_Rent'))
 
 WebUI.closeBrowser()
 
