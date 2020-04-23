@@ -1,85 +1,81 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-    
+
 </head>
+
 <body onload="setInterval(checkNotification, 2000);">
 	<li class="nav-item dropdown">
-	    <a id="navbarDropdown_notif" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-	        aria-haspopup="true" aria-expanded="false" th:text="notifications" onclick="clickOnNotif();">
-	        <span class="caret"></span>
-	    </a>
-	
-	    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-	    <ul id="Notifications" style="font-size:1em;">
-	    </ul>
-	    </div>
+		<a id="navbarDropdown_notif" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+			aria-haspopup="true" aria-expanded="false" th:text="notifications" onclick="clickOnNotif();">
+			<span class="caret"></span>
+		</a>
+
+		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" id="Notifications">
+			<!-- <ul id="Notifications" style="font-size:1em;list-style:none;">
+	    </ul> -->
+		</div>
 	</li>
 </body>
 <script type="text/javascript">
-function checkNotification()
-{
-	$.ajax({
-		url: "/Notification/getNotif",
-		type: "GET",
-		success: function(response)
-		{
-			var array = response.split(',');
-			var notiflist = document.getElementById("Notifications");
-			var mainButton = document.getElementById("navbarDropdown_notif");
-			notiflist.textContent = '';
-			mainButton.className = "nav-link dropdown-toggle";
-			if(array.length < 2)
-				{
+	function checkNotification() {
+		$.ajax({
+			url: "/Notification/getNotif",
+			type: "GET",
+			success: function (response) {
+				var array = response.split(',');
+				var notiflist = document.getElementById("Notifications");
+				var mainButton = document.getElementById("navbarDropdown_notif");
+				notiflist.textContent = '';
+				mainButton.className = "nav-link dropdown-toggle";
+				if (array.length < 2) {
 					return;
 				}
-			for(var i = 0; i<array.length; i+=2)
-				{
-				console.log(array.length);
-				if(array[i+1] == "false")
-					{
-					mainButton.className = "bg-secondary text-white nav-link dropdown-toggle";
+				for (var i = 0; i < array.length; i += 3) {
+					console.log(array.length);
+					if (array[i + 1] == "false") {
+						mainButton.className = "dropdown-item";
 					}
-				notiflist.appendChild(newLi(array[i], array[i+1]));
+					notiflist.appendChild(newA(array[i], array[i + 1], array[i + 2]));
+					var newane = document.createElement("div");
+					newane.className += "dropdown-divider";
+					notiflist.appendChild(newane);
 				}
-		},
-		error: function(data)
-		{
-			window.alert("No notification found!");
-		}
-	});
-}
+			},
+			error: function (data) {
+				window.alert("No notification found!");
+			}
+		});
+	}
 
-function newLi(text, isRead)
-{
-	var newli = document.createElement("li");
-	newli.appendChild(document.createTextNode(text));
-	if(isRead == "true")
-		{
-		newli.className += "text-secondary";
+	function newA(text, date, isRead) {
+		var newa = document.createElement("a");
+		newa.appendChild(document.createTextNode(text));
+		newa.appendChild(document.createElement("br"));
+		newa.appendChild(document.createTextNode(date));
+		if (isRead == "true") {
+			newa.className += "text-secondary";
 		}
-	else
-		{
-		newli.className += "text-primary";
+		else {
+			newa.className += "text-primary";
 		}
-	return newli;
-}
+		return newa;
+	}
 
-function clickOnNotif()
-{
-	$.ajax({
-		url: "/Notification/readNotif",
-		type: "GET",
-		success: function(response)
-		{
-			checkNotification();
-		},
-		error: function(data)
-		{
-			window.alert("No notification found!");
-		}
-	});
-}
+	function clickOnNotif() {
+		$.ajax({
+			url: "/Notification/readNotif",
+			type: "GET",
+			success: function (response) {
+				checkNotification();
+			},
+			error: function (data) {
+				window.alert("No notification found!");
+			}
+		});
+	}
 </script>
+
 </html>
