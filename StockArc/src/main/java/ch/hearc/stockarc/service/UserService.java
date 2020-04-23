@@ -82,6 +82,12 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public void changeUserName(final User user, final String name) {
+        user.setName(name);
+        userRepository.save(user);
+    }
+
+    @Override
     public User createNewPartialUser(@Valid NewUser newUser) {
         Role roleAdmin = roleRepository.findByName("ROLE_USER");
 

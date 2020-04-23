@@ -41,9 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/", "/home").authenticated()
 				.antMatchers("/static/**", "/registration", "/forgotPassword", "/users/resetPassword",
-						"/users/changePassword*")
+						"/users/changePassword*", "/users/completeAccount*")
 				.permitAll().antMatchers("/users/updatePassword*", "/users/savePassword*", "/updatePassword*")
-				.hasAuthority("CHANGE_PASSWORD_PRIVILEGE").antMatchers("/admin").hasRole("ADMIN").anyRequest()
+				.hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
+				.antMatchers("/users/updateAccount*", "/users/saveAccount*", "/updateAccount*")
+				.hasAuthority("CHANGE_ACCOUNT_PRIVILEGE").antMatchers("/admin").hasRole("ADMIN").anyRequest()
 				.authenticated().and().formLogin().loginPage("/login").permitAll().and().logout().permitAll();
 
 		http.exceptionHandling().accessDeniedPage("/403");

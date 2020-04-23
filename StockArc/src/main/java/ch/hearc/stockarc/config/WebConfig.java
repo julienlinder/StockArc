@@ -35,6 +35,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
         registry.addViewController("/updatePassword.html");
+        registry.addViewController("/updateAccount.html");
     }
 
     @Override

@@ -68,6 +68,25 @@ public class UserController {
         return new RedirectView("/");
     }
 
+    @GetMapping("/completeAccount")
+    public String showCompleteAccountPage(final Model model, @RequestParam("id") final long id,
+            @RequestParam("token") final String token) {
+        final String result = securityService.validateUserCreationToken(id, token);
+        if (result != null) {
+            return "redirect:/login";
+        }
+        return "redirect:/updateAccount.html";
+    }
+
+    @PostMapping("/updateAccount")
+    public RedirectView updateAccount(final Locale locale, @RequestParam("newPassword") String newPassword,
+            @RequestParam("name") String name) {
+        final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userService.changeUserPassword(user, newPassword);
+        userService.changeUserName(user, name);
+        return new RedirectView("/");
+    }
+
     // ================================================================================
     // Utils
     // ================================================================================
