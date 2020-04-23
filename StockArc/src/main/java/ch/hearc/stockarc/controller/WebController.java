@@ -28,11 +28,6 @@ public class WebController {
 		return "user";
 	}
 
-	@GetMapping(value = "/admin")
-	public String admin() {
-		return "admin";
-	}
-
 	@GetMapping(value = "/403")
 	public String error403() {
 		return "403";

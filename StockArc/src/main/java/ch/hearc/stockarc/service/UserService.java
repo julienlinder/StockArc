@@ -3,10 +3,13 @@ package ch.hearc.stockarc.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ch.hearc.stockarc.model.NewUser;
 import ch.hearc.stockarc.model.PasswordResetToken;
 import ch.hearc.stockarc.model.Role;
 import ch.hearc.stockarc.model.User;
@@ -57,9 +60,21 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public void createUserCreationTokenForUser(User user, String token) {
+        final PasswordResetToken myToken = new PasswordResetToken(token, user);
+        passwordTokenRepository.save(myToken);
+    }
+
+    @Override
     public void changeUserPassword(final User user, final String password) {
         user.setPassword(bCryptPasswordEncoder.encode(password));
         userRepository.save(user);
+    }
+
+    @Override
+    public void createNewPartialUser(@Valid NewUser newUser) {
+        // TODO Auto-generated method stub
+
     }
 
 }

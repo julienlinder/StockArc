@@ -16,7 +16,7 @@
 
         <div sec:authorize="hasRole('ROLE_ADMIN')" style="display: contents;">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">Add User</a>
+                <a class="nav-link" th:href="@{/admin/createUser}">Add User</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/people}">People</a>
@@ -36,7 +36,7 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" onclick="event.preventDefault();
+                <a class="dropdown-item" href="#" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                     Logout
                 </a>
