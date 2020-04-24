@@ -42,6 +42,7 @@ pipeline {
             }
             steps {
                 unstash "app"
+                sh 'apt-get -y install openjdk-8-jdk'
                 sh 'java -jar ./StockArc/target/StockArc-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &'
                 sh 'sleep 30'
                 sh 'chmod +x ./runTest.sh'
